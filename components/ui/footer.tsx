@@ -36,13 +36,12 @@ export const FooterSection = ({
   </div>
 );
 
-export const FooterIcon = ({
-  Icon,
-  href,
-}: {
-  Icon: React.ElementType;
+type FooterIconProps = {
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   href: string;
-}) => (
+};
+
+export const FooterIcon: React.FC<FooterIconProps> = ({ Icon, href }) => (
   <motion.a
     href={href}
     whileHover={{ scale: 1.1, y: -2 }}
