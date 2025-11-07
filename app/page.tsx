@@ -5,7 +5,8 @@ import { GlobeDemo } from "@/components/sections/globe";
 import { StickyBanner } from "@/components/ui/sticky-banner";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import { HeroHighlightDemo } from "@/components/sections/hero-highlight";
+import { GlowingEffectDemo } from "@/components/sections/glowing-effect"
 
 
 export default function Home() {
@@ -40,6 +41,12 @@ export default function Home() {
         <section className="max-w-6xl mx-auto px-6 py-10 text-center">
           <GlobeDemo />
         </section>
+        <div className="mt-10">
+            <HeroHighlightDemo />
+        </div>
+        <div className="p-30">
+            <GlowingEffectDemo />
+        </div>
       </div>
 
       {/* Footer at bottom */}
