@@ -10,6 +10,7 @@ import { GlowingEffectDemo } from "@/components/sections/glowing-effect"
 import { LayoutGridDemo } from "@/components/sections/layout-grid"
 import { TabsDemo } from "@/components/sections/tabs"
 import { TypewriterEffectSmoothDemo } from "@/components/sections/typewriter-effect"
+import { InfiniteMovingCardsDemo } from "@/components/sections/infinite-moving-cards"
 
 
 
@@ -32,7 +33,7 @@ export default function Home() {
       </StickyBanner>
 
       <motion.div
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-20 right-20 z-50"
         animate={{
           y: isBannerOpen ? 56 : 0,
         }}
@@ -45,6 +46,9 @@ export default function Home() {
         <section className="max-w-6xl mx-auto px-6 py-10 text-center">
           <GlobeDemo />
         </section>
+        <div>
+          <InfiniteMovingCardsDemo />
+        </div>
         <div className="mt-10">
             <HeroHighlightDemo />
         </div>
