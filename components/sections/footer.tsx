@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export function FooterDemo() {
   return (
     <div className="relative w-full flex items-center justify-center bg-[#0B0E14]">
-      <Footer />
+      <Footer /> 
     </div>
   );
 }

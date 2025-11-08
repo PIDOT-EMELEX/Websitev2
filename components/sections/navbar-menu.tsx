@@ -24,7 +24,7 @@ function Navbar({ className }: { className?: string }) {
       {/* ✅ Full-width black rounded nav (now wider) */}
       <nav
         onMouseLeave={() => setActive(null)}
-        className="relative w-[98%] mx-auto flex items-center justify-between rounded-full border border-white/20 bg-black shadow-lg px-10 py-5"
+        className="relative w-[98%] mx-auto flex items-center justify-between rounded-full border border-black/20 dark:border-white/20 bg-white dark:bg-black shadow-lg px-10 py-5"
       >
         {/* 🖤 Left Section - Logo */}
         <div className="flex items-center space-x-3">
@@ -33,12 +33,14 @@ function Navbar({ className }: { className?: string }) {
             width={40}
             height={40}
             alt="Logo Mark"
+            className="invert dark:invert-0"
           />
           <img
             src={"assets/PiDot/Wordmark/SVG/White.svg"}
             width={100}
             height={50}
             alt="Word Mark"
+            className="invert dark:invert-0"
           />
         </div>
 

@@ -81,15 +81,11 @@ export const InfiniteMovingCards = ({
         {items.map((item) => (
           <li
             key={item.title}
-            className="group relative w-[320px] h-[460px] flex flex-col overflow-hidden bg-white 
-                       border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 
-                       transition-all duration-300 rounded-2xl"
-            style={{
-              cursor: `url('/cursors/hover-icon.svg') 16 16, auto`, // ✅ set your custom SVG here
-            }}
+            className="group relative w-[320px] h-[460px] flex flex-col rounded-2xl overflow-hidden bg-black dark:bg-white
+                       border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
             {/* 🖼️ Top Section with Image + Text scaling together */}
-            <div className="h-[45%] w-full relative overflow-hidden transition-all duration-300">
+            <div className="h-[45%] w-full relative overflow-hidden transition-all duration-300 border">
               {/* Wrap image + overlay + text in a scaling container */}
               <div className="w-full h-full relative transform transition-transform duration-500 ease-out group-hover:scale-90">
                 <img
@@ -99,7 +95,7 @@ export const InfiniteMovingCards = ({
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-[15px]"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-[0px] group-hover:translate-y-2.5 group-hover:rounded-[15px] transition-all duration-500 ease-out"></div>
 
                 {/* Text on Image */}
                 <div className="absolute bottom-3 left-4">
@@ -114,19 +110,19 @@ export const InfiniteMovingCards = ({
             </div>
 
             {/* 📝 Bottom Section */}
-            <div className="h-[55%] p-6 flex flex-col justify-between text-black">
+            <div className="h-[55%] p-6 flex flex-col justify-between text-white dark:text-black">
               <div>
-                <h2 className="text-base font-bold mb-2 text-gray-900">
+                <h2 className="text-base font-bold mb-2 text-white/90 dark:text-gray-900">
                   {item.title} Examples
                 </h2>
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
+                <p className="text-sm text-white/70 dark:text-gray-600 leading-relaxed line-clamp-4">
                   {item.quote}
                 </p>
               </div>
 
               <div className="flex justify-between items-center mt-4">
-                <span className="text-xs text-gray-500">{item.date}</span>
-                <button className="text-xs font-semibold px-4 py-2 rounded-full bg-black text-white hover:bg-gray-800 transition">
+                <span className="text-xs text-white/60 dark:text-gray-500">{item.date}</span>
+                <button className="text-xs font-semibold px-4 py-2 rounded-full bg-white dark:bg-black dark:text-white text-black scale-100 hover:scale-110 transition">
                   Read More
                 </button>
               </div>
