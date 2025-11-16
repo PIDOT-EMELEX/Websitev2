@@ -404,7 +404,7 @@ const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
           transition={{ duration: 1 }}
           className="text-2xl md:text-4xl font-bold text-black dark:text-white"
         >
-          Welcome to PI Dot
+          Enterprise Talent Hiring Redefined
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -412,7 +412,7 @@ const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
           transition={{ duration: 1, delay: 0.2 }}
           className="text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-3 mx-auto"
         >
-          We build stunning, interactive websites that captivate and engage your audience.
+          AI Powered Hiring Simulation Software for global teams.
         </motion.p>
       </div>
 

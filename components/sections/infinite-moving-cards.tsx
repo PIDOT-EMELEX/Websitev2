@@ -13,84 +13,57 @@ export function InfiniteMovingCardsDemo() {
 
 const blogCards = [
   {
-    title: "Amazing Tailwind CSS",
-    subtitle: "Grid Layouts",
+    title: "World’s First Corporate Simulation Ecosystem",
+    subtitle: "",
     quote:
-      "Grids are cool, but Tailwind grids are cooler. Learn how to create amazing grid layouts with Tailwind CSS and React.",
+      "Where leadership, decision-making, and AI converge to train the next generation of Thinkers.",
     date: "28th March, 2023",
     image:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&q=80",
   },
   {
-    title: "Creative React UI",
-    subtitle: "Animated Cards",
+    title: "LLM That Outsmarts ChatGPT in Math at INR 20,000",
+    subtitle: "",
     quote:
-      "Animated cards bring life to your website. Learn to make dynamic layouts using Framer Motion and Tailwind CSS.",
+      "Built by Fermion AI Labs — benchmarked to outperform ChatGPT in mathematical reasoning and logic.",
     date: "5th April, 2023",
     image:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&q=80",
   },
   {
-    title: "Modern Web Design",
-    subtitle: "with Shadcn UI",
+    title: "The Real World. Rebuilt as a Simulation",
+    subtitle: "",
     quote:
-      "Shadcn UI brings beautiful prebuilt components with Tailwind CSS. See how to integrate it for fast development.",
+      "CSP mirrors the pulse of corporate life — decisions, dilemmas, and the pressure of real consequence.",
     date: "11th May, 2023",
     image:
       "https://images.unsplash.com/photo-1506765515384-028b60a970df?w=500&q=80",
   },
   {
-    title: "Next.js 15 Magic",
-    subtitle: "Server Actions",
+    title: "From Campus to Corporate under 30 days",
+    subtitle: "",
     quote:
-      "Next.js 15 introduces powerful new features like server actions, improved routing, and faster rendering performance.",
+      "CSP’s structured learning path transforms students into industry-ready professionals.",
     date: "21st June, 2023",
     image:
       "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=500&q=80",
   },
   {
-    title: "AI & Design",
-    subtitle: "Creative Future",
+    title: "A Community Built of Next-Gen AI Builders",
+    subtitle: "",
     quote:
-      "Explore how artificial intelligence is transforming design workflows — from generative art to layout automation.",
+      "Fermion AI Labs is where the next generation of builders, thinkers, and engineers learn to shape intelligence.",
     date: "12th July, 2023",
     image:
       "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=500&q=80",
   },
   {
-    title: "UX Trends 2025",
-    subtitle: "Minimalism Reloaded",
+    title: "AI That Designs Training Itself",
+    subtitle: "",
     quote:
-      "Modern UX emphasizes clarity, contrast, and speed. Discover upcoming trends shaping the future of user experience.",
+      "PI DOT’s adaptive intelligence crafts personalized simulation paths based on real-time learner data.",
     date: "2nd August, 2023",
     image:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&q=80",
-  },
-  {
-    title: "The Rise of TypeScript",
-    subtitle: "Safer Code",
-    quote:
-      "TypeScript is revolutionizing modern web development by adding strong typing and better tooling to JavaScript.",
-    date: "19th August, 2023",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&q=80",
-  },
-  {
-    title: "Building Brands",
-    subtitle: "Through Design",
-    quote:
-      "A strong brand starts with strong visuals. Learn how colors, fonts, and layout consistency create lasting impressions.",
-    date: "15th September, 2023",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&q=80",
-  },
-  {
-    title: "Freelancing Smart",
-    subtitle: "Design as a Business",
-    quote:
-      "Learn how to build a design business that scales — from client acquisition to pricing and long-term brand value.",
-    date: "10th October, 2023",
-    image:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=500&q=80",
   },
 ];
