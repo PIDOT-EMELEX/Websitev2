@@ -16,7 +16,7 @@ export function TypewriterEffectSmoothDemo() {
   return (
     <div className="flex flex-col items-center justify-center h-[10rem]">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base mb-2">
-        Transform how you learn, work, and grow.
+        Ready to Rethink Hiring, Talent Training, and Workforce Readiness?
       </p>
 
       <TypewriterEffectSmooth words={words} />
