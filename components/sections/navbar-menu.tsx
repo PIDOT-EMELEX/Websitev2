@@ -32,8 +32,16 @@ function Navbar({ className }: { className?: string }) {
       {/* ⭐ Full Width Navbar */}
       <nav
         onMouseLeave={() => setActive(null)}
-        className="w-full flex items-center justify-between border border-black/20 dark:border-white/20 
-                   bg-white dark:bg-black shadow-lg px-8 py-5"
+        className="
+          w-full flex items-center justify-between 
+          border border-black/10 dark:border-white/10
+          bg-white/75 dark:bg-black/60
+          backdrop-blur-sm
+          bg-gradient-to-b from-white/75 to-white/60 dark:from-black/60 dark:to-black/50
+          shadow-md px-10 py-5
+        "
+
+
       >
         {/* Logo */}
         <div className="flex items-center space-x-3">
