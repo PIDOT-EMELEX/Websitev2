@@ -1,13 +1,17 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Instagram, Linkedin, Github } from "lucide-react";
 
 const spring = {
   type: "spring",
   damping: 10,
   stiffness: 100,
 } as const;
+
+/* ---------------- Footer Section ---------------- */
 
 export const FooterSection = ({
   title,
@@ -27,7 +31,7 @@ export const FooterSection = ({
         >
           <a
             href={link.href}
-            className="hover:text-white text-gray-400 transition-colors duration-200"
+            className="text-gray-400 transition-colors duration-200 hover:text-white"
           >
             {link.label}
           </a>
@@ -37,6 +41,8 @@ export const FooterSection = ({
   </div>
 );
 
+/* ---------------- Footer Icon ---------------- */
+
 type FooterIconProps = {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   href: string;
@@ -45,117 +51,150 @@ type FooterIconProps = {
 export const FooterIcon: React.FC<FooterIconProps> = ({ Icon, href }) => (
   <motion.a
     href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     whileHover={{ scale: 1.1, y: -2 }}
     transition={spring}
-    className="text-gray-400 hover:text-white transition-colors duration-200"
+    className="text-gray-400 transition-colors duration-200 hover:text-white"
   >
-    <Icon className="w-5 h-5" />
+    <Icon className="h-5 w-5" />
   </motion.a>
 );
 
+/* ---------------- Footer ---------------- */
+
 export const Footer = () => {
   return (
-    <footer className="w-full border-t border-gray-800 bg-[#0B0E14] text-gray-300">
-      <div className="mx-auto w-full max-w-7xl px-6 py-10 md:flex md:items-start md:justify-between">
-        {/* Brand Section */}
-        <motion.div
-          className="mb-8 md:mb-0"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={spring}
-        >
-          <div className="flex items-center gap-2 mb-5">
-            <motion.div
-              // className="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400"
-              whileHover={{ rotate: 20 }}
-              transition={spring}
-            />
-            <div className="flex items-center gap-2">
-            <Image
-              src="/assets/PiDot/Logomark/SVG/White.svg"
-              alt="Pi Dot Logomark"
-              width={32}
-              height={32}
-            />
-            <Image
-              src="/assets/PiDot/Wordmark/SVG/White.svg"
-              alt="Pi Dot Wordmark"
-              width={100}
-              height={32}
-            />
-          </div>
-          </div>
-          <p className="mt-2 text-sm text-gray-400">
-            © 2025 EMELEX Business Solutions LLP. All rights reserved.
-          </p>
-        </motion.div>
+    <footer className="w-full bg-[#0B0E14] text-gray-300">
 
-        {/* Link Sections */}
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-          <FooterSection
-            title="PI DOT"
-            links={[
-              { label: "About Us", href: "" },
-              { label: "Leadership", href: "" },
-              { label: "Our Story", href: "" },
-              { label: "Careers", href: "" },
-              { label: "Contact", href: "" },
-            ]}
-          />
-          <FooterSection
-            title="ENTERPRISE"
-            links={[
-              { label: "PI DOT for Enterprise", href: "" },
-              { label: "Enterprise Guides", href: "" },
-              { label: "Security", href: "" },
-              { label: "ROI Calculator", href: "" },
-              { label: "Book a Call", href: "" },
-            ]}
-          />
-          <FooterSection
-            title="RESOURCES"
-            links={[
-              { label: "Manifesto", href: "" },
-              { label: "Case Studies", href: "" },
-              { label: "Press & Media", href: "" },
-              { label: "Research Papers", href: "" },
-              { label: "Community & Events", href: "" },
-            ]}
-          />
-          <FooterSection
-            title="SUPPORT"
-            links={[
-              { label: "Help Center", href: "" },
-              { label: "Report an Issue", href: "" },
-              { label: "Contact Support", href: "" },
-            ]}
-          />
-          <FooterSection
-            title="LEGAL"
-            links={[
-              { label: "Privacy Policy", href: "" },
-              { label: "Terms of Service", href: "" },
-              { label: "Data Processing Agreement", href: "" },
-              { label: "Cookies & Compliance", href: "" },
-            ]}
-          />
+      {/* Main Footer */}
+      <div className="mx-auto w-full max-w-7xl px-6 py-12">
+
+        {/* Logo + Links Wrapper */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
+
+          {/* Logo */}
+          <motion.div
+            className="lg:col-span-1"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={spring}
+          >
+            <div className="flex items-center gap-2">
+              <Image
+                src="/assets/PiDot/Logomark/SVG/White.svg"
+                alt="Pi Dot Logomark"
+                width={32}
+                height={32}
+              />
+              <Image
+                src="/assets/PiDot/Wordmark/SVG/White.svg"
+                alt="Pi Dot Wordmark"
+                width={100}
+                height={32}
+              />
+            </div>
+          </motion.div>
+
+          {/* Links → start AFTER logo */}
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-4 lg:grid-cols-4">
+
+            <FooterSection
+              title="PI DOT"
+              links={[
+                { label: "About Us", href: "" },
+                { label: "Leadership", href: "" },
+                { label: "Our Story", href: "" },
+                { label: "Careers", href: "" },
+                { label: "Contact", href: "" },
+              ]}
+            />
+
+            <FooterSection
+              title="ENTERPRISE"
+              links={[
+                { label: "PI DOT for Enterprise", href: "" },
+                { label: "Enterprise Guides", href: "" },
+                { label: "Security", href: "" },
+                { label: "ROI Calculator", href: "" },
+                { label: "Book a Call", href: "" },
+              ]}
+            />
+
+            <FooterSection
+              title="RESOURCES"
+              links={[
+                { label: "Manifesto", href: "" },
+                { label: "Case Studies", href: "" },
+                { label: "Press & Media", href: "" },
+                { label: "Research Papers", href: "" },
+                { label: "Community & Events", href: "" },
+              ]}
+            />
+
+            <FooterSection
+              title="LEGAL"
+              links={[
+                { label: "Privacy Policy", href: "" },
+                { label: "Terms of Service", href: "" },
+                { label: "Data Processing Agreement", href: "" },
+                { label: "Cookies & Compliance", href: "" },
+              ]}
+            />
+
+            <FooterSection
+              title="SUPPORT"
+              links={[
+                { label: "Help Center", href: "" },
+                { label: "Report an Issue", href: "" },
+                { label: "Contact Support", href: "" },
+              ]}
+            />
+
+            <FooterSection
+              title="INSTITUTIONS"
+              links={[
+                { label: "Corporate Simulation", href: "" },
+                { label: "Fermion AI Labs", href: "" },
+                { label: "Global Education for Schools", href: "" },
+              ]}
+            />
+
+            
+
+            <FooterSection
+              title="BLOG"
+              links={[
+                { label: "Our Blog", href: "" },
+                { label: "Case Studies", href: "" },
+                { label: "Press & Media", href: "" },
+                { label: "Research Papers", href: "" },
+                { label: "Community & Events", href: "" },
+              ]}
+            />
+          </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      {/* <motion.div
+      <motion.div
         className="border-t border-gray-800"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-4 sm:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-gray-500">
-            Built with <span className="text-blue-400">Next.js</span> &{" "}
-            <span className="text-cyan-400">Tailwind CSS</span>
+            © 2025 EMELEX Business Solutions LLP. All rights reserved.
           </p>
+
+          <div className="flex items-center gap-4">
+            <FooterIcon Icon={Instagram} href="https://instagram.com/" />
+            <FooterIcon Icon={Linkedin} href="https://linkedin.com/" />
+            <FooterIcon Icon={Github} href="https://github.com/" />
+          </div>
         </div>
-      </motion.div> */}
+      </motion.div>
     </footer>
   );
 };

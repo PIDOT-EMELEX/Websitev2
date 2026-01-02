@@ -50,14 +50,14 @@ function Navbar({ className }: { className?: string }) {
             width={40}
             height={40}
             alt="Logo Mark"
-            className="invert dark:invert-0"
+            // className="invert dark:invert-0"
           />
           <img
             src={"assets/PiDot/Wordmark/SVG/Pi_Dot_Mustard__3_-removebg-preview.svg"}
             width={100}
             height={50}
             alt="Word Mark"
-            className="invert dark:invert-0"
+            // className="invert dark:invert-0"
           />
         </div>
 

@@ -330,10 +330,29 @@ const HoverCard = ({ item, index, activeIndex, onTouch, manual }: any) => {
             {item.quote}
           </p>
         </div>
+        
+        <div className="mt-4 flex items-center justify-between gap-3 whitespace-nowrap">
+          <span className="text-[10px] sm:text-xs text-gray-500 truncate">
+            {item.date}
+          </span>
 
-        <span className="text-[10px] sm:text-xs text-white/60 dark:text-gray-500">
-          {item.date}
-        </span>
+          <a
+            href={item.link || "#"}
+            className="
+              shrink-0
+              px-5 py-2
+              rounded-full
+              text-xs sm:text-sm font-medium
+              bg-black text-white
+              transition-transform duration-300
+              hover:scale-105
+              active:scale-95
+            "
+          >
+            Read More
+          </a>
+        </div>
+        
       </div>
     </li>
   );
