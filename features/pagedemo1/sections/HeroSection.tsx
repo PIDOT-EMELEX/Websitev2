@@ -27,8 +27,8 @@ export default function HeroSection() {
           muted
           loop
         >
-          <source src="/videos/home/hero-v2/roy-hevc-safari.mp4" type="video/mp4" />
-          <source src="/videos/home/hero-v2/roy-vp9-chrome.webm" type="video/webm" />
+          <source src="/pagedemo1/roy-hevc-safari.mp4" type="video/mp4" />
+          <source src="/pagedemo1/roy-vp9-chrome.webm" type="video/webm" />
         </video>
       </div>
     </section>

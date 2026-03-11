@@ -136,7 +136,7 @@ function Navbar({ className }: { className?: string }) {
             {/* </MenuItem> */}
 
             {/* <MenuItem setActive={setActive} active={active} item="Beta"> */}
-                <HoveredLink href="/pagedemo1">Beta</HoveredLink>
+                <HoveredLink href="/pagedemo">Beta</HoveredLink>
             {/* </MenuItem> */}
 
           </div>

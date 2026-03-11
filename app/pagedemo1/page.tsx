@@ -1,4 +1,5 @@
 import HeroSection from "../../features/pagedemo1/sections/HeroSection";
+import FeatureSection from "../../features/pagedemo1/sections/FeatureSection";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
 
       <HeroSection />
     </section>
+    <FeatureSection />
     </main>
   );
 }
