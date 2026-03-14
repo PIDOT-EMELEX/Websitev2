@@ -46,14 +46,14 @@ function Navbar({ className }: { className?: string }) {
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <img
-            src={"assets/PiDot/Logomark/SVG/Regular.svg"}
+            src={"/assets/pi-dot-logomark.svg"}
             width={40}
             height={40}
             alt="Logo Mark"
             // className="invert-0"
           />
           <img
-            src={"assets/PiDot/Wordmark/SVG/Pi_Dot_Mustard__3_-removebg-preview.svg"}
+            src={"/assets/pi-dot-wordmark.svg"}
             width={100}
             height={50}
             alt="Word Mark"

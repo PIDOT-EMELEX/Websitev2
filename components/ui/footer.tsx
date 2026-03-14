@@ -82,13 +82,13 @@ export const Footer = () => {
           >
             <div className="flex items-center gap-2">
               <Image
-                src="assets/PiDot/Logomark/SVG/Regular.svg"
+                src="/assets/pi-dot-logomark.svg"
                 alt="Pi Dot Logomark"
                 width={32}
                 height={32}
               />
               <Image
-                src="assets/PiDot/Wordmark/SVG/Pi_Dot_Mustard__3_-removebg-preview.svg"
+                src="/assets/pi-dot-wordmark.svg"
                 alt="Pi Dot Wordmark"
                 width={100}
                 height={32}
@@ -124,7 +124,7 @@ export const Footer = () => {
             <FooterSection
               title="RESOURCES"
               links={[
-                { label: "Manifesto", href: "" },
+                { label: "Manifesto", href: "/resources/manifesto" },
                 { label: "Case Studies", href: "" },
                 { label: "Press & Media", href: "" },
                 { label: "Research Papers", href: "" },
@@ -135,8 +135,8 @@ export const Footer = () => {
             <FooterSection
               title="LEGAL"
               links={[
-                { label: "Privacy Policy", href: "" },
-                { label: "Terms of Service", href: "" },
+                { label: "Privacy Policy", href: "/legal/privacy-policy" },
+                { label: "Terms of Service", href: "/legal/terms-of-service" },
                 { label: "Data Processing Agreement", href: "" },
                 { label: "Cookies & Compliance", href: "" },
               ]}

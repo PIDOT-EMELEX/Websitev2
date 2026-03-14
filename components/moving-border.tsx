@@ -23,10 +23,23 @@ export default function MovingBorder({
   const [length, setLength] = useState(0);
 
   useEffect(() => {
-    if (rectRef.current) {
-      setLength(rectRef.current.getTotalLength());
-    }
-  }, []);
+  const rect = rectRef.current;
+  if (!rect) return;
+
+  const updateLength = () => {
+    try {
+      const l = rect.getTotalLength();
+      if (l > 0) setLength(l);
+    } catch {}
+  };
+
+  updateLength();
+
+  const resizeObserver = new ResizeObserver(updateLength);
+  resizeObserver.observe(rect);
+
+  return () => resizeObserver.disconnect();
+}, []);
 
   useAnimationFrame((time) => {
     if (!length) return;
@@ -57,12 +70,27 @@ export default function MovingBorder({
     );
   });
 
-  const x = useTransform(progress, (v) =>
-    rectRef.current ? rectRef.current.getPointAtLength(v).x : 0
-  );
-  const y = useTransform(progress, (v) =>
-    rectRef.current ? rectRef.current.getPointAtLength(v).y : 0
-  );
+  const x = useTransform(progress, (v) => {
+  const rect = rectRef.current;
+  if (!rect || length === 0) return 0;
+
+  try {
+    return rect.getPointAtLength(v).x;
+  } catch {
+    return 0;
+  }
+});
+
+const y = useTransform(progress, (v) => {
+  const rect = rectRef.current;
+  if (!rect || length === 0) return 0;
+
+  try {
+    return rect.getPointAtLength(v).y;
+  } catch {
+    return 0;
+  }
+});
 
   // Size behavior: big at corners, small at center
   const scale = useTransform(progress, (v) => {

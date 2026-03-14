@@ -1,4 +1,4 @@
-import EverythingInYourControlUI from '@/features/pagedemo/ui/EverythingInYourControlUI';
+import EverythingInYourControlUI from '@/pages/pagedemo/ui/EverythingInYourControlUI';
 
 export default function EverythingInYourControlSection() {
   return (

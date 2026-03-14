@@ -1,15 +1,15 @@
-import HeroSection from '@/features/pagedemo/sections/HeroSection';
-import TrustedBySection from '@/features/pagedemo/sections/TrustedBySection';
-import IntegrateMorningSection from '@/features/pagedemo/sections/IntegrateMorningSection';
-import DeveloperExperienceSection from '@/features/pagedemo/sections/DeveloperExperienceSection';
-import EditorSection from '@/features/pagedemo/sections/EditorSection';
-import GoBeyondEditingSection from '@/features/pagedemo/sections/GoBeyondEditingSection';
-import EmailWithReactSection from '@/features/pagedemo/sections/EmailWithReactSection';
-import InfoTabSection from '@/features/pagedemo/sections/InfoTabSection';
-import TestimonialSection from '@/features/pagedemo/sections/TestimonialSection';
-import EverythingInYourControlSection from '@/features/pagedemo/sections/EverythingInYourControlSection';
-import InfiniteMovingCardsSection from '@/features/pagedemo/sections/InfiniteMovingCardsSection';
-import EmailReimaginedSection from '@/features/pagedemo/sections/EmailReimaginedSection';
+import HeroSection from '@/pages/pagedemo/sections/HeroSection';
+import TrustedBySection from '@/pages/pagedemo/sections/TrustedBySection';
+import IntegrateMorningSection from '@/pages/pagedemo/sections/IntegrateMorningSection';
+import DeveloperExperienceSection from '@/pages/pagedemo/sections/DeveloperExperienceSection';
+import EditorSection from '@/pages/pagedemo/sections/EditorSection';
+import GoBeyondEditingSection from '@/pages/pagedemo/sections/GoBeyondEditingSection';
+import EmailWithReactSection from '@/pages/pagedemo/sections/EmailWithReactSection';
+import InfoTabSection from '@/pages/pagedemo/sections/InfoTabSection';
+import TestimonialSection from '@/pages/pagedemo/sections/TestimonialSection';
+import EverythingInYourControlSection from '@/pages/pagedemo/sections/EverythingInYourControlSection';
+import InfiniteMovingCardsSection from '@/pages/pagedemo/sections/InfiniteMovingCardsSection';
+import EmailReimaginedSection from '@/pages/pagedemo/sections/EmailReimaginedSection';
 
 export default function Home() {
   return (
