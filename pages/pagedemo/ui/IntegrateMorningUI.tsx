@@ -16,7 +16,7 @@ import {
   SmtpIcon,
   GitHubIcon,
   DownloadIcon,
-} from "../icons/PlatformIcons";
+} from "../../../components/PlatformIcons";
 
 /* ---------------------------------
    COPY ICON (YOUR SVG)
