@@ -1,4 +1,4 @@
-import LinkPreviewCard from "@/pages/resources/components/LinkPreviewCard";
+import LinkPreviewCard from "@/features/resources/components/LinkPreviewCard";
 import { NavbarDemo } from "@/components/sections/navbar-menu";
 import { FooterDemo } from "@/components/sections/footer";
 

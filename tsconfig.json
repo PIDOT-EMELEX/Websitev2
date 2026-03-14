@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "pages/pagedemo/cube.jsx"  ],
+, "features/pagedemo/cube.jsx"  ],
   "exclude": ["node_modules"]
 }

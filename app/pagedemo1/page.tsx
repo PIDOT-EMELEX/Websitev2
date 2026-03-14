@@ -1,5 +1,5 @@
-import HeroSection from "../../pages/pagedemo1/sections/HeroSection";
-import FeatureSection from "../../pages/pagedemo1/sections/FeatureSection";
+import HeroSection from "../../features/pagedemo1/sections/HeroSection";
+import FeatureSection from "../../features/pagedemo1/sections/FeatureSection";
 
 export default function Home() {
   return (
