@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/colors": "^3.0.0",
+    "@radix-ui/react-hover-card": "^1.1.17",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-email/components": "^1.0.4",
     "@react-three/drei": "^10.7.6",
@@ -20,8 +21,9 @@
     "link-preview-js": "^4.0.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.553.0",
-    "motion": "^12.23.24",
+    "motion": "^12.40.0",
     "next": "^16.1.1",
+    "qss": "^3.0.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwind-merge": "^3.3.1",

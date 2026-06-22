@@ -14,7 +14,7 @@ import DeveloperExperienceSection from "../../features/enterprise/sections/Devel
 import EverythingInYourControlSection from "../../features/enterprise/sections/EverythingInYourControlSection";
 import GoBeyondEditingSection from "../../features/enterprise/sections/GoBeyondEditingSection";
 import { TypewriterEffectSmoothDemo } from "../../features/enterprise/sections/typewriter-effect";
-import TestimonialSection from "@/features/pagedemo/sections/TestimonialSection";
+import TestimonialCarousel from "@/components/sections/TestimonialCarousel";
 
 
 export default function Enterprise() {
@@ -90,7 +90,7 @@ export default function Enterprise() {
               
               {/* ================= TESTIMONIALS ================= */}
               <section className="mt-36">
-                <TestimonialSection />
+                <TestimonialCarousel />
               </section>
           </section>
       </div>

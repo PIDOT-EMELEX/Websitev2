@@ -7,59 +7,19 @@ import { NavbarDemo } from "@/components/sections/navbar-menu";
 import { FooterDemo } from "@/components/sections/footer";
 import { StickyBanner } from "@/components/ui/sticky-banner";
 import PiDotGlow from "@/components/sections/pi-dot-glow";
-import ContactSection from "@/features/contact-us/contact-section";
 import ContactHero from "@/features/contact-us/contact-hero";
-
-import {
-  BlogPost,
-  getBlogs,
-} from "@/lib/blog-storage";
 
 export default function ContactUs() {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
-  const [activeCategory, setActiveCategory] =
-    useState("All");
-
-  const [blogs, setBlogs] =
-    useState<BlogPost[]>([]);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (
-        "scrollRestoration" in
-        window.history
-      ) {
-        window.history.scrollRestoration =
-          "manual";
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
       }
-
       window.scrollTo(0, 0);
-
-      const visibleBlogs =
-        getBlogs()
-          .filter(
-            (blog) =>
-              blog.showOnBlogPage
-          )
-          .sort(
-            (a, b) =>
-              new Date(
-                b.createdAt
-              ).getTime() -
-              new Date(
-                a.createdAt
-              ).getTime()
-          );
-
-      setBlogs(visibleBlogs);
     }
   }, []);
-
-  const featured =
-    blogs.find(
-      (post) => post.featured
-    ) || blogs[0];
 
   return (
     <main className="min-h-screen flex flex-col bg-black">
@@ -71,10 +31,7 @@ export default function ContactUs() {
       >
         <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
           Reach out to us to redefine hiring.{" "}
-          <a
-            href="/contact-us"
-            className="underline transition duration-200"
-          >
+          <a href="/contact-us" className="underline transition duration-200">
             Contact us
           </a>
         </p>
@@ -83,9 +40,7 @@ export default function ContactUs() {
       {/* NAVBAR */}
       <motion.div
         className="fixed top-10 sm:top-0 z-50 w-full flex justify-center"
-        animate={{
-          y: isBannerOpen ? 56 : 0,
-        }}
+        animate={{ y: isBannerOpen ? 56 : 0 }}
       >
         <NavbarDemo />
       </motion.div>
@@ -99,8 +54,6 @@ export default function ContactUs() {
         }`}
       >
         <ContactHero />
-        <ContactSection />
-
       </div>
 
       {/* FOOTER */}
@@ -108,7 +61,6 @@ export default function ContactUs() {
         <div className="absolute inset-0 z-0">
           <PiDotGlow />
         </div>
-
         <div className="relative z-10 mt-75">
           <FooterDemo />
         </div>

@@ -6,7 +6,7 @@ import EditorSection from '@/features/pagedemo/sections/EditorSection';
 import GoBeyondEditingSection from '@/features/pagedemo/sections/GoBeyondEditingSection';
 import EmailWithReactSection from '@/features/pagedemo/sections/EmailWithReactSection';
 import InfoTabSection from '@/features/pagedemo/sections/InfoTabSection';
-import TestimonialSection from '@/features/pagedemo/sections/TestimonialSection';
+import TestimonialCarousel from '@/components/sections/TestimonialCarousel';
 import EverythingInYourControlSection from '@/features/pagedemo/sections/EverythingInYourControlSection';
 import InfiniteMovingCardsSection from '@/features/pagedemo/sections/InfiniteMovingCardsSection';
 import EmailReimaginedSection from '@/features/pagedemo/sections/EmailReimaginedSection';
@@ -22,7 +22,7 @@ export default function Home() {
       <GoBeyondEditingSection />
       <EmailWithReactSection />
       <InfoTabSection />
-      <TestimonialSection />
+      <TestimonialCarousel />
       <EverythingInYourControlSection />
       <InfiniteMovingCardsSection />
       <EmailReimaginedSection />

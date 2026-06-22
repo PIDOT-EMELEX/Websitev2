@@ -106,7 +106,7 @@ export default function EmailWithReactSection() {
             </span>
             </a>
         </div>
-        <EmailWithReactUI />
+        {/* <EmailWithReactUI /> */}
     </section>
   );
 }

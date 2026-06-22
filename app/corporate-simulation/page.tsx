@@ -13,7 +13,7 @@ import DeveloperExperienceSection from "@/features/institutions/corporate-simula
 import IntegrateMorningSection from "@/features/institutions/corporate-simulation/sections/IntegrateMorningSection";
 import EditorSection from "@/features/institutions/corporate-simulation/sections/EditorSection";
 import EmailWithReactSection from "@/features/institutions/corporate-simulation/sections/EmailWithReactSection";
-import TestimonialSection from "@/features/institutions/corporate-simulation/sections/TestimonialSection";
+import TestimonialCarousel from "@/components/sections/TestimonialCarousel";
 
 
 export default function CorporateSimulation() {
@@ -67,7 +67,7 @@ export default function CorporateSimulation() {
         <IntegrateMorningSection />
         <EditorSection />
         <EmailWithReactSection />
-        <TestimonialSection />
+        <TestimonialCarousel />
       </div>
 
       {/* ================= FOOTER ================= */}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LinkPreview } from "@/components/ui/link-preview";
 
 export default function GoBeyondEditingUI() {
   return (
@@ -111,12 +112,12 @@ export default function GoBeyondEditingUI() {
                 Get full visibility of each contact and their personal attributes.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-slate-200 transition hover:text-white focus-visible:ring-2 focus-visible:ring-slate-600 outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
         </div>
@@ -214,12 +215,12 @@ export default function GoBeyondEditingUI() {
                 Unlock powerful insights and understand exactly how your audience is interacting with your broadcast emails.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-slate-200 transition hover:text-white focus-visible:ring-2 focus-visible:ring-slate-600 outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
           </div>

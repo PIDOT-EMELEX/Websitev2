@@ -13,7 +13,7 @@ import TrustedBySection from "@/components/sections/TrustedBySection";
 import EverythingInYourControlSection from "@/components/sections/EverythingInYourControlSection";
 import GoBeyondEditingSection from "@/components/sections/GoBeyondEditingSection";
 import { TypewriterEffectSmoothDemo } from "@/components/sections/typewriter-effect";
-import TestimonialSection from "@/components/sections/TestimonialSection";
+import TestimonialCarousel from "@/components/sections/TestimonialCarousel";
 import PiDotGlow from "@/components/sections/pi-dot-glow";
 
 
@@ -102,7 +102,7 @@ export default function Home() {
 
         {/* ================= TESTIMONIALS ================= */}
         <section className="mt-36">
-          <TestimonialSection />
+          <TestimonialCarousel />
         </section>
       </div>
 

@@ -1,3 +1,5 @@
+import { LinkPreview } from "@/components/ui/link-preview";
+
 export default function DeveloperExperienceUI() {
   return (
     <>
@@ -215,12 +217,12 @@ export default function DeveloperExperienceUI() {
           </p>
 
           {/* Link */}
-          <a
-            href="#"
+          <LinkPreview
+            url="https://pidot.in"
             className="text-sm text-slate-200 transition hover:text-white focus-visible:ring-2 focus-visible:ring-slate-600 outline-none"
           >
             Learn more
-          </a>
+          </LinkPreview>
           </div>
         </div>
 
@@ -340,12 +342,12 @@ export default function DeveloperExperienceUI() {
               </p>
 
               {/* Link */}
-              <a
-                href="#"
+              <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-slate-200 transition hover:text-white focus-visible:ring-2 focus-visible:ring-slate-600 outline-none"
               >
                 Learn more
-              </a>
+              </LinkPreview>
             </div>
 
           </div>

@@ -1,143 +1,65 @@
 "use client";
 
-import { FileText } from "lucide-react";
-import { Briefcase } from "lucide-react";
-
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AdminHome() {
+export default function AdminLoginPage() {
   const router = useRouter();
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e?: React.FormEvent) => {
+    e?.preventDefault();
+
+    if (username === "admin" && password === "vamshi@pidot") {
+      router.push("/admin/dashboard");
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-black text-white">
-
-      <div className="mx-auto max-w-6xl px-6 py-24">
-
-        <h1
-          className="
-            text-center
-            text-5xl
-            font-bold
-          "
-        >
-          Admin Dashboard
-        </h1>
-
-        <p
-          className="
-            mt-4
-            text-center
-            text-zinc-400
-          "
-        >
-          Manage Blogs and Careers
+    <main className="min-h-screen bg-black flex items-center justify-center px-6">
+      <div className="w-full max-w-md rounded-3xl border border-white/10 bg-zinc-950 p-10">
+        <h1 className="text-4xl font-bold text-white">Admin Login</h1>
+        <p className="mt-3 text-zinc-400">
+          Login to access the PI DOT dashboard.
         </p>
 
-        <div
-          className="
-            mt-20
-            grid
-            gap-8
-            md:grid-cols-2
-          "
-        >
-
-          {/* BLOG CARD */}
-
-          <button
-            onClick={() =>
-              router.push("/admin/blogs")
-            }
-            className="
-              group
-              rounded-3xl
-              border
-              border-zinc-800
-              bg-zinc-950
-              p-10
-              text-left
-              transition
-              hover:border-[#f69507]
-            "
-          >
-            <FileText
-              size={50}
-              className="
-                text-[#f69507]
-              "
+        <form onSubmit={handleLogin} className="mt-10 space-y-6">
+          {/* USERNAME */}
+          <div>
+            <label className="mb-2 block text-sm text-zinc-400">Username</label>
+            <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter username"
+              className="w-full rounded-2xl border border-zinc-800 bg-black px-5 py-4 text-white outline-none focus:border-[#f69507] transition-colors"
             />
+          </div>
 
-            <h2
-              className="
-                mt-6
-                text-3xl
-                font-bold
-              "
-            >
-              Blog Management
-            </h2>
-
-            <p
-              className="
-                mt-3
-                text-zinc-400
-              "
-            >
-              Create, edit, publish and manage
-              blogs.
-            </p>
-          </button>
-
-          {/* CAREER CARD */}
-
-          <button
-            onClick={() =>
-              router.push("/admin/careers")
-            }
-            className="
-              group
-              rounded-3xl
-              border
-              border-zinc-800
-              bg-zinc-950
-              p-10
-              text-left
-              transition
-              hover:border-[#f69507]
-            "
-          >
-            <Briefcase
-              size={50}
-              className="
-                text-[#f69507]
-              "
+          {/* PASSWORD */}
+          <div>
+            <label className="mb-2 block text-sm text-zinc-400">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              className="w-full rounded-2xl border border-zinc-800 bg-black px-5 py-4 text-white outline-none focus:border-[#f69507] transition-colors"
             />
+          </div>
 
-            <h2
-              className="
-                mt-6
-                text-3xl
-                font-bold
-              "
-            >
-              Career Management
-            </h2>
-
-            <p
-              className="
-                mt-3
-                text-zinc-400
-              "
-            >
-              Manage hiring positions and
-              career page visibility.
-            </p>
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="w-full rounded-2xl bg-[#f69507] py-4 font-semibold text-white transition hover:opacity-90"
+          >
+            Login
           </button>
-
-        </div>
-
+        </form>
       </div>
-
     </main>
   );
 }

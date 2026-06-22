@@ -17,6 +17,7 @@ export const InfiniteMovingCards = ({
     quote: string;
     date: string;
     image: string;
+    link?: string;
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
@@ -50,7 +51,17 @@ export const InfiniteMovingCards = ({
   }, []);
 
   useEffect(() => {
-    setRenderItems([...items, ...items]);
+    if (items.length === 0) {
+      setRenderItems([]);
+      return;
+    }
+    // Repeat items until we have a healthy number (at least 8 items) to ensure they span wider than the viewport width
+    let repeated = [...items];
+    while (repeated.length < 8) {
+      repeated = [...repeated, ...items];
+    }
+    // Duplicate the final set once more to ensure seamless looping transition
+    setRenderItems([...repeated, ...repeated]);
   }, [items]);
 
   useEffect(() => {
@@ -65,8 +76,10 @@ export const InfiniteMovingCards = ({
       direction === "left" ? "forwards" : "reverse"
     );
 
-    setStart(true);
-  }, [speed, direction]);
+    if (renderItems.length > 0) {
+      setStart(true);
+    }
+  }, [speed, direction, renderItems]);
 
   useEffect(() => {
     if (mode === "infinite" && containerRef.current) {
@@ -254,28 +267,21 @@ export const InfiniteMovingCards = ({
 const HoverCard = ({ item, index, activeIndex, onTouch, manual }: any) => {
   const isActive = activeIndex === index;
 
-  // local handlers to call parent's onTouch with index
   const handlePointerDown = (e: React.PointerEvent) => {
-    // call parent's handler (tap)
     onTouch?.(index);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    // on touchstart, set as active (simulate hover)
     onTouch?.(index);
   };
 
   const handlePointerEnter = (e: React.PointerEvent) => {
-    // for mouse users, show hover
-    // do not trigger this on touch-capable devices if you want to avoid accidental hover
     if ((e as any).pointerType === "mouse") {
       onTouch?.(index);
     }
   };
 
   const handlePointerLeave = (e: React.PointerEvent) => {
-    // clear active on mouse leave
-    // parent code clears activeIndex only on outside clicks — but for clean mouse UX we clear here
     if ((e as any).pointerType === "mouse") {
       onTouch?.(null);
     }
@@ -291,69 +297,72 @@ const HoverCard = ({ item, index, activeIndex, onTouch, manual }: any) => {
         "group relative w-[230px] sm:w-[260px] md:w-[300px]",
         "h-[420px] sm:h-[460px] md:h-[500px]",
         "rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-lg",
-        // Hover ON for mobile + desktop (CSS hover remains for pointer devices that support it)
+        "list-none",
         "transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
         isActive && "-translate-y-1 shadow-xl",
         manual && "shrink-0"
       )}
     >
-      <div className="h-[45%] w-full relative overflow-hidden border">
-        <div
-          className={cn(
-            "w-full h-full transition-transform duration-500 ease-out",
-            // CSS hover
-            "group-hover:scale-90",
-            // active (touch / simulated hover)
-            isActive && "scale-90"
-          )}
-        >
-          <img
-            src={item.image}
-            alt={item.title}
+      {/* Full-card link wrapper — clicking anywhere opens blog */}
+      <a
+        href={item.link || "#"}
+        target={item.link ? "_blank" : undefined}
+        rel={item.link ? "noopener noreferrer" : undefined}
+        className="flex flex-col w-full h-full no-underline text-inherit"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="h-[45%] w-full relative overflow-hidden border">
+          <div
             className={cn(
-              "w-full h-full object-cover transition-all duration-500 ease-out rounded-[0px]",
-              // CSS hover
-              "group-hover:translate-y-2.5 group-hover:rounded-[15px]",
-              // active (touch / simulated hover)
-              isActive && "translate-y-2.5 rounded-[15px]"
+              "w-full h-full transition-transform duration-500 ease-out",
+              "group-hover:scale-90",
+              isActive && "scale-90"
             )}
-          />
-        </div>
-      </div>
-
-      <div className="h-[55%] p-6 flex flex-col justify-between text-black">
-        <div>
-          <h2 className="text-sm sm:text-base font-bold mb-2 text-gray-900">
-            {item.title}
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-4">
-            {item.quote}
-          </p>
-        </div>
-        
-        <div className="mt-4 flex items-center justify-between gap-3 whitespace-nowrap">
-          <span className="text-[10px] sm:text-xs text-gray-500 truncate">
-            {item.date}
-          </span>
-
-          <a
-            href={item.link || "#"}
-            className="
-              shrink-0
-              px-5 py-2
-              rounded-full
-              text-xs sm:text-sm font-medium
-              bg-black text-white
-              transition-transform duration-300
-              hover:scale-105
-              active:scale-95
-            "
           >
-            Read More
-          </a>
+            <img
+              src={item.image}
+              alt={item.title}
+              className={cn(
+                "w-full h-full object-cover transition-all duration-500 ease-out rounded-[0px]",
+                "group-hover:translate-y-2.5 group-hover:rounded-[15px]",
+                isActive && "translate-y-2.5 rounded-[15px]"
+              )}
+            />
+          </div>
         </div>
 
-      </div>
+        <div className="h-[55%] p-6 flex flex-col justify-between text-black">
+          <div>
+            <h2 className="text-sm sm:text-base font-bold mb-2 text-gray-900">
+              {item.title}
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-4">
+              {item.quote}
+            </p>
+          </div>
+          
+          <div className="mt-4 flex items-center justify-between gap-3 whitespace-nowrap">
+            <span className="text-[10px] sm:text-xs text-gray-500 truncate">
+              {item.date}
+            </span>
+
+            <span
+              className="
+                shrink-0
+                px-5 py-2
+                rounded-full
+                text-xs sm:text-sm font-medium
+                bg-black text-white
+                transition-transform duration-300
+                group-hover:scale-105
+                active:scale-95
+              "
+            >
+              Read More
+            </span>
+          </div>
+        </div>
+      </a>
     </li>
   );
 };

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LinkPreview } from "@/components/ui/link-preview";
 
 export default function GoBeyondEditingUI() {
   return (
@@ -110,12 +111,12 @@ export default function GoBeyondEditingUI() {
                 Assess and prepare candidates through role-specific simulations that reflect real business challenges.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-white/80 transition hover:text-white focus-visible:ring-2 focus-visible:ring-white outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
         </div>
@@ -213,12 +214,12 @@ export default function GoBeyondEditingUI() {
                 Identify candidates whose capabilities, approach, and execution style align with your organizational requirements.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-white/80 transition hover:text-white focus-visible:ring-2 focus-visible:ring-white outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
           </div>
@@ -330,12 +331,12 @@ export default function GoBeyondEditingUI() {
                 Leverage simulations to support employee upskilling, capability development, decision-making effectiveness, and operational readiness across teams.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-white/80 transition hover:text-white focus-visible:ring-2 focus-visible:ring-white outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
         </div>
@@ -433,12 +434,12 @@ export default function GoBeyondEditingUI() {
                 Configure tailored simulations quickly, customized to your roles, workflows, and evaluation parameters.
             </p>
 
-            <a
-                href="#"
+            <LinkPreview
+                url="https://pidot.in"
                 className="text-sm text-white/80 transition hover:text-white focus-visible:ring-2 focus-visible:ring-white outline-none"
             >
                 Learn more
-            </a>
+            </LinkPreview>
             </div>
 
           </div>

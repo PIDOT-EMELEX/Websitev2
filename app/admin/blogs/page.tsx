@@ -72,7 +72,7 @@ export default function DashboardPage() {
       {/* BACK BUTTON */}
       <div className="mb-10">
         <Link
-          href="/admin"
+          href="/admin/dashboard"
           className="
             inline-flex items-center gap-2
             rounded-xl border border-zinc-700
