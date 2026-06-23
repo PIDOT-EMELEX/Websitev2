@@ -16,6 +16,25 @@ export default function AdminBlogsPage() {
   const router = useRouter();
 
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [categoryInputOpen, setCategoryInputOpen] = useState(false);
+  const [categoryInput, setCategoryInput] = useState("");
+
+  const defaultCategories = [
+    "General",
+    "Placements",
+    "Hackathons",
+    "Workshops",
+    "Industry Connect",
+    "Case Studies",
+    "Insights",
+    "AI & Technology",
+    "Success Stories",
+  ];
+
+  // Get all unique categories from existing blogs
+  const allCategories = Array.from(
+    new Set([...defaultCategories, ...blogs.map((b) => b.category).filter(Boolean)])
+  ).sort();
 
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
@@ -133,27 +152,73 @@ export default function AdminBlogsPage() {
           {/* AUTHOR IMAGE */}
           <div>
             <label className="mb-2 block text-sm text-zinc-400">
-              Author Image URL
+              Author Image
             </label>
-            <input
-              value={authorImage}
-              onChange={(e) => setAuthorImage(e.target.value)}
-              placeholder="/blog/roy.jpg"
-              className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
-            />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <input
+                value={authorImage}
+                onChange={(e) => setAuthorImage(e.target.value)}
+                placeholder="/blog/roy.jpg"
+                className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
+              />
+              <label className="inline-flex items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors">
+                Upload
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setAuthorImage(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+              </label>
+            </div>
+            {authorImage && (
+              <img
+                src={authorImage}
+                alt="Author preview"
+                className="mt-3 h-16 w-16 rounded-full object-cover border border-zinc-700"
+              />
+            )}
           </div>
 
           {/* FEATURED IMAGE */}
           <div>
             <label className="mb-2 block text-sm text-zinc-400">
-              Featured Image URL
+              Featured Image
             </label>
-            <input
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              placeholder="/blog/hero.png"
-              className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
-            />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <input
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                placeholder="/blog/hero.png"
+                className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
+              />
+              <label className="inline-flex items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-sm text-zinc-400 cursor-pointer hover:border-zinc-600 transition-colors">
+                Upload
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setImage(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+              </label>
+            </div>
+            {image && (
+              <img
+                src={image}
+                alt="Featured preview"
+                className="mt-3 w-full max-w-[300px] rounded-2xl object-cover border border-zinc-700"
+              />
+            )}
           </div>
 
           {/* CATEGORY */}
@@ -161,19 +226,62 @@ export default function AdminBlogsPage() {
             <label className="mb-2 block text-sm text-zinc-400">
               Category
             </label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
-            >
-              <option>General</option>
-              <option>Placements</option>
-              <option>Hackathons</option>
-              <option>Workshops</option>
-              <option>Industry Connect</option>
-              <option>Case Studies</option>
-              <option>Insights</option>
-            </select>
+            <div className="relative">
+              <input
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setCategoryInput(e.target.value);
+                }}
+                onFocus={() => setCategoryInputOpen(true)}
+                placeholder="Type or select a category"
+                className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 px-5 py-4 text-white outline-none focus:border-[#f69507]"
+              />
+              
+              {/* Category Dropdown */}
+              {categoryInputOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setCategoryInputOpen(false)}
+                  />
+                  <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-48 overflow-y-auto rounded-2xl border border-zinc-800 bg-zinc-950 shadow-lg">
+                    {allCategories
+                      .filter((cat) =>
+                        cat.toLowerCase().includes(category.toLowerCase())
+                      )
+                      .map((cat) => (
+                        <button
+                          key={cat}
+                          onClick={() => {
+                            setCategory(cat);
+                            setCategoryInputOpen(false);
+                          }}
+                          className="w-full px-5 py-3 text-left text-white hover:bg-zinc-900 transition-colors border-b border-zinc-800/50 last:border-b-0"
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    
+                    {/* Custom category option if input doesn't match any existing */}
+                    {category &&
+                      !allCategories.some(
+                        (cat) => cat.toLowerCase() === category.toLowerCase()
+                      ) && (
+                        <button
+                          onClick={() => {
+                            setCategory(category);
+                            setCategoryInputOpen(false);
+                          }}
+                          className="w-full px-5 py-3 text-left text-[#f69507] hover:bg-zinc-900 transition-colors border-t border-zinc-800 font-medium"
+                        >
+                          ✓ Create new: "{category}"
+                        </button>
+                      )}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {/* EXCERPT */}

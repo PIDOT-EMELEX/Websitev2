@@ -28,6 +28,11 @@ import {
   AlertTriangle,
   Lightbulb,
   PartyPopper,
+  Bold,
+  Italic,
+  Link as LinkIcon,
+  Underline,
+  Strikethrough,
 } from "lucide-react";
 import { getBlogs, updateBlog } from "@/lib/blog-storage";
 
@@ -138,6 +143,7 @@ function BlockPicker({ onSelect, onClose }: { onSelect: (t: BlockType) => void; 
 ───────────────────────────────────────────── */
 function BlockContent({ block, onUpdate, onFocus }: { block: Block; onUpdate: (u: Partial<Block>) => void; onFocus: () => void }) {
   const textRef = useGrow(block.text || "");
+  const paragraphRef = useRef<HTMLTextAreaElement>(null);
 
   switch (block.type) {
 
@@ -153,12 +159,98 @@ function BlockContent({ block, onUpdate, onFocus }: { block: Block; onUpdate: (u
           placeholder="Subheading" className="w-full bg-transparent text-2xl font-semibold text-zinc-200 outline-none placeholder:text-zinc-700 py-1.5" />
       );
 
-    case "paragraph":
+    case "paragraph": {
+      const applyFormat = (format: "bold" | "italic" | "code" | "link" | "underline" | "strikethrough") => {
+        const el = paragraphRef.current;
+        if (!el) return;
+
+        const value = block.text || "";
+        const start = el.selectionStart;
+        const end = el.selectionEnd;
+        const selected = value.slice(start, end) || (format === "link" ? "link text" : "text");
+        let replacement = selected;
+
+        if (format === "bold") replacement = `**${selected}**`;
+        if (format === "italic") replacement = `*${selected}*`;
+        if (format === "code") replacement = `\`${selected}\``;
+        if (format === "underline") replacement = `__${selected}__`;
+        if (format === "strikethrough") replacement = `~~${selected}~~`;
+        if (format === "link") {
+          const url = window.prompt("Link URL", "https://");
+          if (!url) return;
+          replacement = `[${selected}](${url})`;
+        }
+
+        const next = value.slice(0, start) + replacement + value.slice(end);
+        onUpdate({ text: next });
+        setTimeout(() => {
+          const cursor = start + replacement.length;
+          el.focus();
+          el.selectionStart = el.selectionEnd = cursor;
+        }, 0);
+      };
+
       return (
-        <textarea ref={textRef} value={block.text || ""} onChange={e => onUpdate({ text: e.target.value })} onFocus={onFocus}
-          placeholder="Tell your story…" rows={1}
-          className="w-full bg-transparent text-[17px] text-zinc-300 leading-8 resize-none outline-none placeholder:text-zinc-700 py-1.5 overflow-hidden" />
+        <>
+          <div className="mb-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => applyFormat("bold")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <Bold size={14} /> Bold
+            </button>
+            <button
+              type="button"
+              onClick={() => applyFormat("italic")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <Italic size={14} /> Italic
+            </button>
+            <button
+              type="button"
+              onClick={() => applyFormat("underline")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <Underline size={14} /> Underline
+            </button>
+            <button
+              type="button"
+              onClick={() => applyFormat("strikethrough")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <Strikethrough size={14} /> Strike
+            </button>
+            <button
+              type="button"
+              onClick={() => applyFormat("code")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <Code size={14} /> Code
+            </button>
+            <button
+              type="button"
+              onClick={() => applyFormat("link")}
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-950 px-3 py-2 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
+            >
+              <LinkIcon size={14} /> Link
+            </button>
+          </div>
+          <textarea
+            ref={(element) => {
+              textRef.current = element;
+              paragraphRef.current = element;
+            }}
+            value={block.text || ""}
+            onChange={(e) => onUpdate({ text: e.target.value })}
+            onFocus={onFocus}
+            placeholder="Tell your story…"
+            rows={1}
+            className="w-full bg-transparent text-[17px] text-zinc-300 leading-8 resize-none outline-none placeholder:text-zinc-700 py-1.5 overflow-hidden"
+          />
+        </>
       );
+    }
 
     case "blockquote":
       return (
@@ -564,7 +656,7 @@ export default function BlogEditorPage() {
           <div className="flex flex-wrap gap-2 mb-6">
             <select value={category} onChange={e => { setCategory(e.target.value); markDirty(); }}
               className="bg-zinc-900 border border-zinc-800 rounded-full px-4 py-1.5 text-sm text-zinc-300 outline-none hover:border-zinc-600 transition-colors">
-              {["General","Placements","Hackathons","Workshops","Industry Connect","AI & Technology","Case Studies"].map(c =>
+              {["General","Placements","Hackathons","Workshops","Industry Connect","AI & Technology","Case Studies","Insights","Success Stories"].map(c =>
                 <option key={c}>{c}</option>)}
             </select>
             <input value={author} onChange={e => { setAuthor(e.target.value); markDirty(); }}

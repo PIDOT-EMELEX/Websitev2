@@ -1,628 +1,167 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import MovingBorder from "../moving-border";
 
 export default function EverythingInYourControlUI() {
+  const [activeTab, setActiveTab] = useState(1);
 
-const [activeTab, setActiveTab] = useState(1);
-const [isOpen, setIsOpen] = useState(false);
+  const cards = [
+    {
+      id: 1,
+      title: "Design the role before you hire",
+      description: "Define the exact competencies and requirements for your open positions with precision.",
+      icon: "📋",
+      image: "/pagedemo/screenshot-metrics.webp",
+    },
+    {
+      id: 2,
+      title: "Simulate your business environment",
+      description: "Create realistic business scenarios that mirror real-world challenges candidates will face.",
+      icon: "🎮",
+      image: "/pagedemo/screenshot-emails.webp",
+    },
+    {
+      id: 3,
+      title: "Control evaluation criteria",
+      description: "Set and customize evaluation metrics that matter most to your organization.",
+      icon: "⚙️",
+      image: "/pagedemo/screenshot-domain.webp",
+    },
+    {
+      id: 4,
+      title: "Watch candidates perform",
+      description: "Observe how candidates approach problems and make real-time decisions.",
+      icon: "👀",
+      image: "/pagedemo/screenshot-domain.webp",
+    },
+    {
+      id: 5,
+      title: "Shortlist using performance signals",
+      description: "Use data-driven insights to identify top performers automatically.",
+      icon: "🎯",
+      image: "/pagedemo/screenshot-domain.webp",
+    },
+    {
+      id: 6,
+      title: "Hire your right candidate",
+      description: "Make confident hiring decisions backed by comprehensive performance data.",
+      icon: "✅",
+      image: "/pagedemo/screenshot-domain.webp",
+    },
+  ];
+
   return (
-    <div dir="ltr" data-orientation="horizontal">
-        
-        {/* MOBILE DROPDOWN */}
-        <div className="lg:hidden mb-4">
+    <div className="w-full">
+      {/* Card Grid */}
+      <div className="grid gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
+        {cards.map((card, idx) => (
+          <motion.div
+            key={card.id}
+            onClick={() => setActiveTab(card.id)}
+            className={`group cursor-pointer rounded-3xl border-2 transition-all duration-300 overflow-hidden ${
+              activeTab === card.id
+                ? "border-[#f69507] bg-gradient-to-br from-white/10 to-white/5"
+                : "border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10"
+            }`}
+            whileHover={{ y: -4 }}
+          >
+            {/* Card Content */}
+            <div className="p-6 md:p-8 relative z-10">
+              <div className="mb-4 text-4xl">{card.icon}</div>
 
-        {/* Selected Button */}
-        <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-full border border-white/30 rounded-2xl p-4 text-left text-white bg-black"
-        >
-            {activeTab === 1 && "Design the role before you hire"}
-            {activeTab === 2 && "Simulate your business environment"}
-            {activeTab === 3 && "Control evaluation criteria"}
-            {activeTab === 4 && "Watch candidates perform"}
-            {activeTab === 5 && "Shortlist using performance signals"}
-            {activeTab === 6 && "Hire your right candidate"}
-        </button>
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight group-hover:text-[#f69507] transition-colors duration-200">
+                {card.title}
+              </h3>
 
-        {/* Dropdown Buttons */}
-        {isOpen && (
-            <div className="mt-2 flex flex-col gap-2">
-            
-            <button
-                onClick={() => { setActiveTab(1); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Design the role before you hire
-            </button>
+              <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                {card.description}
+              </p>
 
-            <button
-                onClick={() => { setActiveTab(2); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Simulate your business environment
-            </button>
+              <div className="flex items-center gap-2 text-xs md:text-sm text-gray-400">
+                <span className="inline-block px-3 py-1 rounded-full bg-white/10 border border-white/20">
+                  Step {card.id}
+                </span>
+              </div>
 
-            <button
-                onClick={() => { setActiveTab(3); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Control evaluation criteria
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(4); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Watch candidates perform
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(5); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Shortlist using performance signals
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(6); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Hire your right candidate
-            </button>
-
-            </div>
-        )}
-
-        </div>
-        
-        {/* TAB LIST */}
-        <div
-        role="tablist"
-        aria-orientation="horizontal"
-        tabIndex={0}
-        data-orientation="horizontal"
-        className="hidden lg:grid mb-3 grid-cols-1 gap-3 md:mb-8 md:gap-8 lg:grid-cols-3"
-        style={{ outline: 'none' }}
-        >
-        {/* ================= TAB 1 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 1}
-            data-state={activeTab === 1 ? "active" : "inactive"}
-            onClick={() => setActiveTab(1)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Design the role before you hire"
-            id="radix-_R_1dpbr9fstb_-trigger-Design the role before you hire"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                      <rect width="20" height="14" x="2" y="6" rx="2" />
-                    </svg>
+              {activeTab === card.id && (
+                <div className="pointer-events-none absolute inset-0 z-[1] rounded-3xl">
+                  <MovingBorder duration={3000} radius={28} />
                 </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
+              )}
             </div>
+          </motion.div>
+        ))}
+      </div>
 
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Design the role before you hire
-            </h4>
+      {/* Expanded Content View */}
+      <motion.div
+        key={activeTab}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+        className="rounded-3xl border border-white/20 bg-white/5 backdrop-blur-xl overflow-hidden"
+      >
+        {/* Header */}
+        <div className="p-6 md:p-10 border-b border-white/10">
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                {cards.find(c => c.id === activeTab)?.title}
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg max-w-2xl">
+                {cards.find(c => c.id === activeTab)?.description}
+              </p>
             </div>
-
-            </span>
-            
-            {activeTab === 1 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-                        
-        </button>
-        
-
-        {/* ================= TAB 2 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 2}
-            data-state={activeTab === 2 ? "active" : "inactive"}
-            onClick={() => setActiveTab(2)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Simulate your business environment"
-            id="radix-_R_1dpbr9fstb_-trigger-Simulate your business environment"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="20" height="15" x="2" y="3" rx="2" />
-                      <line x1="6" x2="6" y1="21" y2="18" />
-                      <line x1="10" x2="10" y1="21" y2="18" />
-                      <line x1="14" x2="14" y1="21" y2="18" />
-                      <line x1="18" x2="18" y1="21" y2="18" />
-                      <line x1="2" x2="22" y1="18" y2="18" />
-                    </svg>
-                </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
-            </div>
-
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Simulate your business environment
-            </h4>
-            </div>
-
-            </span>
-
-            {activeTab === 2 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-
-        </button>
-
-        {/* ================= TAB 3 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 3}
-            data-state={activeTab === 3 ? "active" : "inactive"}
-            onClick={() => setActiveTab(3)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Control evaluation criteria"
-            id="radix-_R_1dpbr9fstb_-trigger-Control evaluation criteria"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <line x1="4" x2="4" y1="21" y2="14" />
-                      <line x1="4" x2="4" y1="10" y2="3" />
-                      <line x1="12" x2="12" y1="21" y2="12" />
-                      <line x1="12" x2="12" y1="8" y2="3" />
-                      <line x1="20" x2="20" y1="21" y2="16" />
-                      <line x1="20" x2="20" y1="12" y2="3" />
-                      <line x1="2" x2="6" y1="14" y2="14" />
-                      <line x1="10" x2="14" y1="8" y2="8" />
-                      <line x1="18" x2="22" y1="16" y2="16" />
-                    </svg>
-                </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
-            </div>
-
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Control evaluation criteria
-            </h4>
-            </div>
-
-            </span>
-
-            {activeTab === 3 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-
-        </button>
-
-        {/* ================= TAB 4 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 4}
-            data-state={activeTab === 4 ? "active" : "inactive"}
-            onClick={() => setActiveTab(4)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Watch candidates perform"
-            id="radix-_R_1dpbr9fstb_-trigger-Watch candidates perform"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
-            </div>
-
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Watch candidates perform
-            </h4>
-            </div>
-
-            </span>
-
-            {activeTab === 4 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-
-        </button>
-
-        {/* ================= TAB 5 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 5}
-            data-state={activeTab === 5 ? "active" : "inactive"}
-            onClick={() => setActiveTab(5)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Shortlist using performance signals"
-            id="radix-_R_1dpbr9fstb_-trigger-Shortlist using performance signals"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                    </svg>
-                </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
-            </div>
-
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Shortlist using performance signals
-            </h4>
-            </div>
-
-            </span>
-
-            {activeTab === 5 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-
-        </button>
-
-        {/* ================= TAB 6 ================= */}
-        <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 6}
-            data-state={activeTab === 6 ? "active" : "inactive"}
-            onClick={() => setActiveTab(6)}
-            aria-controls="radix-_R_1dpbr9fstb_-content-Hire your right candidate"
-            id="radix-_R_1dpbr9fstb_-trigger-Hire your right candidate"
-            tabIndex={-1}
-            data-orientation="horizontal"
-            data-radix-collection-item=""
-            className="group relative h-[3.75rem] overflow-hidden rounded-2xl border border-white/30 p-6 md:h-[5.625rem] outline-hidden focus-visible:ring-2 focus-visible:ring-white/30 data-[state='active']:border-white/30"
-        >
-            <span className="absolute inset-px z-10 grid place-items-center rounded-2xl bg-black group-data-[state=active]:bg-gradient-to-b group-data-[state=active]:from-white/[3%] group-data-[state=active]:via-white/[1%] group-data-[state=active]:to-black">
-            <div className="flex h-full w-full items-center gap-2 px-4 py-2 text-left md:gap-4 md:p-6">
-            <div className="align-center border-white/30 text-white group-data-[state=active]:text-[#f69507] relative flex h-10 w-10 justify-center overflow-hidden rounded-xl bg-gradient-to-bl from-white/[6%] p-2 transition-all duration-150 ease-in-out group-data-[state=active]:from-white/10 md:border">
-                <div className="relative flex h-full w-full items-center justify-center">
-                <div style={{ width: 18, height: 18 }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <polyline points="16 11 18 13 22 9" />
-                    </svg>
-                </div>
-
-                <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-transparent mix-blend-darken group-data-[state=active]:bg-[#f69507]"
-                />
-                </div>
-            </div>
-
-            <h4 className="font-display effect-font-styling text-base tracking-tighter text-white">
-                Hire your right candidate
-            </h4>
-            </div>
-
-            </span>
-
-            {activeTab === 6 && (
-            <div className="pointer-events-none absolute inset-0 z-[1] rounded-2xl">
-                <MovingBorder duration={3000} radius={28} />
-            </div>
-            )}
-
-        </button>
+          </div>
         </div>
 
-
-        <div className="grid">
-            {/* ================= TAB PANEL 1 ================= */}
-            <div
-            data-state={activeTab === 1 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Design the role before you hire"
-            id="radix-_R_1dpbr9fstb_-content-Design the role before you hire"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 1
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-metrics.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
-
-            {/* ================= TAB PANEL 2 ================= */}
-            <div
-            data-state={activeTab === 2 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Simulate your business environment"
-            id="radix-_R_1dpbr9fstb_-content-Simulate your business environment"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 2
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-emails.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
-
-            {/* ================= TAB PANEL 3 ================= */}
-            <div
-            data-state={activeTab === 3 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Control evaluation criteria"
-            id="radix-_R_1dpbr9fstb_-content-Control evaluation criteria"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 3
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-domain.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
-
-            {/* ================= TAB PANEL 4 ================= */}
-            <div
-            data-state={activeTab === 4 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Watch candidates perform"
-            id="radix-_R_1dpbr9fstb_-content-Watch candidates perform"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 4
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-domain.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
-
-            {/* ================= TAB PANEL 5 ================= */}
-            <div
-            data-state={activeTab === 5 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Shortlist using performance signals"
-            id="radix-_R_1dpbr9fstb_-content-Shortlist using performance signals"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 5
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-domain.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
-
-            {/* ================= TAB PANEL 6 ================= */}
-            <div
-            data-state={activeTab === 6 ? "active" : "inactive"}
-            data-orientation="horizontal"
-            role="tabpanel"
-            aria-labelledby="radix-_R_1dpbr9fstb_-trigger-Hire your right candidate"
-            id="radix-_R_1dpbr9fstb_-content-Hire your right candidate"
-            tabIndex={0}
-            className={`col-start-1 row-start-1 transition-all duration-500 ease-out
-            ${
-                activeTab === 6
-                ? "opacity-100 translate-y-0 scale-[1]"
-                : "opacity-0 -translate-y-6 scale-[0.98] pointer-events-none"
-            }`}
-            >
-            <div style={{ opacity: 1, transform: 'none' }}>
-                <img
-                alt="Resend Dashboard - Overview"
-                src="/pagedemo/screenshot-domain.webp"
-                loading="lazy"
-                width={1232}
-                height={657}
-                decoding="async"
-                data-nimg="1"
-                className="w-full rounded-2xl border border-white/20"
-                style={{ color: 'transparent' }}
-                />
-            </div>
-            </div>
+        {/* Image */}
+        <div className="relative h-64 md:h-96 overflow-hidden">
+          <motion.img
+            key={cards.find(c => c.id === activeTab)?.image}
+            src={cards.find(c => c.id === activeTab)?.image}
+            alt={cards.find(c => c.id === activeTab)?.title}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-full h-full object-cover"
+          />
         </div>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between p-6 md:p-10 border-t border-white/10 bg-gradient-to-r from-white/5 to-transparent">
+          <button
+            onClick={() => setActiveTab(activeTab === 1 ? 6 : activeTab - 1)}
+            className="px-6 py-2 rounded-full border border-white/30 text-white hover:border-[#f69507] hover:text-[#f69507] transition-colors"
+          >
+            ← Previous
+          </button>
+
+          <div className="flex gap-2">
+            {cards.map((card) => (
+              <button
+                key={card.id}
+                onClick={() => setActiveTab(card.id)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  activeTab === card.id
+                    ? "bg-[#f69507] w-8"
+                    : "bg-white/30 hover:bg-white/60"
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => setActiveTab(activeTab === 6 ? 1 : activeTab + 1)}
+            className="px-6 py-2 rounded-full border border-white/30 text-white hover:border-[#f69507] hover:text-[#f69507] transition-colors"
+          >
+            Next →
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 }

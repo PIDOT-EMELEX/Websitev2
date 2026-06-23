@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export function PremiumBlogFooter() {
-  const fadeInVariants = {
+  const fadeInVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
       opacity: 1,
@@ -12,6 +12,7 @@ export function PremiumBlogFooter() {
       transition: {
         delay: i * 0.05,
         duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
       },
     }),
   };
