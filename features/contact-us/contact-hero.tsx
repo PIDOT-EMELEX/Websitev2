@@ -3,8 +3,21 @@
 import { useState, useEffect, useCallback } from "react";
 import { getEnabledTestimonials, Testimonial } from "@/lib/testimonial-storage";
 
+// Default fallback testimonial for SSR
+const DEFAULT_TESTIMONIAL: Testimonial = {
+  id: "default",
+  name: "Priya Sharma",
+  role: "Dean of Commerce",
+  company: "BITS Hyderabad",
+  quote: "Pi Dot transformed how our students experience real-world business. The simulations are incredibly realistic and the support team is phenomenal.",
+  avatarUrl: "/blog/roy.jpg",
+  logoUrl: "/assets/pi-dot-logomark.svg",
+  enabled: true,
+  createdAt: "2026-01-15T10:00:00Z",
+};
+
 export default function ContactHero() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([DEFAULT_TESTIMONIAL]);
   const [activeIdx, setActiveIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [fading, setFading] = useState(false);
@@ -18,7 +31,10 @@ export default function ContactHero() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    setTestimonials(getEnabledTestimonials());
+    const loaded = getEnabledTestimonials();
+    if (loaded.length > 0) {
+      setTestimonials(loaded);
+    }
   }, []);
 
   const count = testimonials.length;
