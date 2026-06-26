@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Instagram, Linkedin, Github } from "lucide-react";
+import { CAL_BOOKING_URL } from "./book-call-link";
 
 const spring = {
   type: "spring",
@@ -31,6 +32,8 @@ export const FooterSection = ({
         >
           <a
             href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
             className="text-gray-400 transition-colors duration-200 hover:text-white"
           >
             {link.label}
@@ -117,7 +120,7 @@ export const Footer = () => {
                 { label: "Enterprise Guides", href: "" },
                 { label: "Security", href: "" },
                 { label: "ROI Calculator", href: "" },
-                { label: "Book a Call", href: "" },
+                { label: "Book a Call", href: CAL_BOOKING_URL },
               ]}
             />
 

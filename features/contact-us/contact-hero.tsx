@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { ArrowRight } from "lucide-react";
+import { CAL_BOOKING_URL } from "@/components/ui/book-call-link";
 import { getEnabledTestimonials, Testimonial } from "@/lib/testimonial-storage";
 
 // Default fallback testimonial for SSR
@@ -22,18 +24,10 @@ export default function ContactHero() {
   const [isPaused, setIsPaused] = useState(false);
   const [fading, setFading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    company: "",
-    message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-
   useEffect(() => {
     const loaded = getEnabledTestimonials();
     if (loaded.length > 0) {
-      setTestimonials(loaded);
+      window.setTimeout(() => setTestimonials(loaded), 0);
     }
   }, []);
 
@@ -64,13 +58,6 @@ export default function ContactHero() {
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
   }, [isPaused, count, next]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-    setFormData({ fullName: "", email: "", company: "", message: "" });
-  };
 
   const t = testimonials[activeIdx];
 
@@ -176,88 +163,36 @@ export default function ContactHero() {
             </div>
           </div>
 
-          {/* ========== RIGHT: CONTACT FORM ========== */}
+          {/* ========== RIGHT: BOOKING CARD ========== */}
           <div className="flex flex-col justify-center px-0 lg:px-8">
             <div className="mb-8">
               <h1 className="text-4xl font-bold text-white mb-3">Contact Us</h1>
               <p className="text-white/50 text-sm leading-relaxed">
-                Please reach out to us and we will get back to you at the speed of light.
+                Book a slot with our team and share the context directly in Cal.com.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Full Name */}
-              <div>
-                <label className="block text-sm text-white/60 mb-2 font-medium">
-                  Full Name
-                </label>
-                <input
-                  id="contact-full-name"
-                  type="text"
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  placeholder="Manu Arora"
-                  required
-                  className="w-full rounded-xl bg-zinc-900/60 border border-zinc-800 focus:border-[#f69507]/60 focus:bg-zinc-900 px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all duration-200 text-sm"
-                />
+            <div className="rounded-[2rem] border border-white/10 bg-zinc-950/80 p-8 shadow-[0_0_80px_rgba(246,149,7,0.12)]">
+              <div className="rounded-3xl border border-[#f69507]/20 bg-[#f69507]/10 p-6">
+                <p className="text-lg font-semibold text-white">
+                  Schedule your conversation with Pi Dot.
+                </p>
+                <p className="mt-3 text-sm leading-6 text-white/60">
+                  Pick an available time, add your details, and we will meet you
+                  there.
+                </p>
               </div>
 
-              {/* Email */}
-              <div>
-                <label className="block text-sm text-white/60 mb-2 font-medium">
-                  Email address
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="hello@johndoe.com"
-                  required
-                  className="w-full rounded-xl bg-zinc-900/60 border border-zinc-800 focus:border-[#f69507]/60 focus:bg-zinc-900 px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all duration-200 text-sm"
-                />
-              </div>
-
-              {/* Company */}
-              <div>
-                <label className="block text-sm text-white/60 mb-2 font-medium">
-                  Company
-                </label>
-                <input
-                  id="contact-company"
-                  type="text"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="Aceternity Labs, LLC"
-                  className="w-full rounded-xl bg-zinc-900/60 border border-zinc-800 focus:border-[#f69507]/60 focus:bg-zinc-900 px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all duration-200 text-sm"
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label className="block text-sm text-white/60 mb-2 font-medium">
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Enter your message here"
-                  required
-                  className="w-full rounded-xl bg-zinc-900/60 border border-zinc-800 focus:border-[#f69507]/60 focus:bg-zinc-900 px-4 py-3 text-white placeholder:text-zinc-600 outline-none transition-all duration-200 resize-none text-sm"
-                />
-              </div>
-
-              {/* Submit */}
-              <button
-                id="contact-submit-btn"
-                type="submit"
-                className="w-full rounded-full bg-white text-black font-semibold py-3.5 text-sm transition-all duration-200 hover:bg-white/90 hover:shadow-[0_0_30px_rgba(246,149,7,0.25)] active:scale-[0.98] cursor-pointer"
+              <a
+                href={CAL_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white py-3.5 text-sm font-semibold text-black transition-all duration-200 hover:bg-white/90 hover:shadow-[0_0_30px_rgba(246,149,7,0.25)] active:scale-[0.98]"
               >
-                {submitted ? "Message Sent ✓" : "Submit"}
-              </button>
-            </form>
+                Book a Call
+                <ArrowRight size={16} />
+              </a>
+            </div>
           </div>
 
         </div>

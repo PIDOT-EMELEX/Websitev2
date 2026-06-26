@@ -6,6 +6,7 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
+import { CAL_BOOKING_URL } from "@/components/ui/book-call-link";
 
 export default function ContactSection() {
   return (
@@ -42,7 +43,7 @@ export default function ContactSection() {
               md:text-7xl
             "
           >
-            Let's Build
+            Let&apos;s Build
             <br />
             Something Great.
           </h2>
@@ -56,10 +57,10 @@ export default function ContactSection() {
               text-zinc-400
             "
           >
-            Whether you're a college,
+            Whether you&apos;re a college,
             startup, founder, student organization,
             or enterprise partner,
-            we'd love to hear about your goals
+            we&apos;d love to hear about your goals
             and explore how Pi Dot can help.
           </p>
 
@@ -158,7 +159,7 @@ export default function ContactSection() {
 
         </div>
 
-        {/* RIGHT SIDE FORM */}
+        {/* RIGHT SIDE BOOKING CARD */}
 
         <div
           className="
@@ -183,103 +184,31 @@ export default function ContactSection() {
             Book An Appointment
           </h3>
 
-          <form className="space-y-6">
-
-            {/* NAME */}
-
-            <div>
-              <label className="mb-2 block text-sm text-black">
-                Name
-              </label>
-
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="
-                  w-full
-                  rounded-2xl
-                  bg-white/25
-                  px-5 py-4
-                  text-black
-                  placeholder:text-black/60
-                  outline-none
-                "
-              />
-            </div>
-
-            {/* CONTACT */}
-
-            <div>
-              <label className="mb-2 block text-sm text-black">
-                Contact (Email Preferred)
-              </label>
-
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="
-                  w-full
-                  rounded-2xl
-                  bg-white/25
-                  px-5 py-4
-                  text-black
-                  placeholder:text-black/60
-                  outline-none
-                "
-              />
-            </div>
-
-            {/* PROFESSION */}
-
-            <div>
-              <label className="mb-2 block text-sm text-black">
-                Profession / Representing Whom
-              </label>
-
-              <input
-                type="text"
-                placeholder="College, Startup, Founder..."
-                className="
-                  w-full
-                  rounded-2xl
-                  bg-white/25
-                  px-5 py-4
-                  text-black
-                  placeholder:text-black/60
-                  outline-none
-                "
-              />
-            </div>
-
-            {/* REASON */}
-
-            <div>
-              <label className="mb-2 block text-sm text-black">
-                Reason For Appointment
-              </label>
-
-              <textarea
-                rows={6}
-                placeholder="Tell us about your requirements..."
-                className="
-                  w-full
-                  rounded-2xl
-                  bg-white/25
-                  px-5 py-4
-                  text-black
-                  placeholder:text-black/60
-                  outline-none
-                  resize-none
-                "
-              />
-            </div>
-
-            {/* BUTTON */}
-
-            <button
-              type="submit"
+          <div className="space-y-8">
+            <div
               className="
-                flex
+                rounded-3xl
+                bg-white/20
+                p-6
+                text-black
+              "
+            >
+              <p className="text-lg font-semibold">
+                Pick a time that works for you.
+              </p>
+
+              <p className="mt-3 text-sm leading-6 text-black/70">
+                You will be redirected to our Cal.com booking page to choose an
+                available slot and share the details for the conversation.
+              </p>
+            </div>
+
+            <a
+              href={CAL_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                inline-flex
                 items-center
                 gap-3
                 rounded-full
@@ -291,12 +220,11 @@ export default function ContactSection() {
                 hover:scale-105
               "
             >
-              Submit
+              Book a Call
 
               <ArrowRight size={18} />
-            </button>
-
-          </form>
+            </a>
+          </div>
 
         </div>
       </div>
