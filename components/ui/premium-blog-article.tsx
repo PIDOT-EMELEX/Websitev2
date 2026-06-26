@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
+import { CAL_BOOKING_URL } from "./book-call-link";
 
 interface BlogArticleProps {
   title: string;
@@ -42,8 +43,8 @@ function toHtml(text: string) {
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/__(.+?)__/g, "<u>$1</u>")
     .replace(/~~(.+?)~~/g, "<del>$1</del>")
-    .replace(/`(.+?)`/g, "<code class='rounded-sm bg-gray-100 px-1 py-0.5 font-mono text-sm text-gray-900'>$1</code>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href='$2' class='text-black underline'>$1</a>");
+    .replace(/`(.+?)`/g, "<code class='rounded-sm bg-zinc-800 px-1.5 py-0.5 font-mono text-sm text-zinc-100 border border-zinc-700/50'>$1</code>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href='$2' class='text-[#f69507] hover:text-[#ffcc66] transition-colors underline'>$1</a>");
 }
 
 function headingId(text: string, index: number) {
@@ -75,27 +76,30 @@ export function PremiumBlogArticle({
     .filter(Boolean) as { id: string; title: string; level: number }[];
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
-      <div className="pt-16" />
+    <main className="min-h-screen bg-black text-zinc-300 relative overflow-hidden">
+      {/* Ambient Top Glow */}
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[350px] w-[700px] rounded-full bg-[#f69507]/10 blur-[130px] z-0" />
 
+
+      {/* Header Section */}
       <motion.section
-        className="mx-auto max-w-3xl px-6 py-20"
+        className="mx-auto max-w-7xl px-6 pt-2 pb-2 relative z-10 text-left"
         custom={0}
         initial="hidden"
         whileInView="visible"
         variants={fadeInVariants}
       >
         <motion.span
-          className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-gray-600"
+          className="inline-flex items-center gap-2 rounded-full border border-[#f69507]/30 bg-[#f69507]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#f69507]"
           custom={0}
           variants={fadeInVariants}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-gray-400" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#f69507]" />
           {category}
         </motion.span>
 
         <motion.h1
-          className="mt-8 text-6xl font-bold leading-[1.05] text-black md:text-7xl"
+          className="mt-6 text-4xl font-bold leading-[1.1] text-white md:text-5xl lg:text-6xl tracking-tight text-left"
           custom={1}
           variants={fadeInVariants}
         >
@@ -103,43 +107,47 @@ export function PremiumBlogArticle({
         </motion.h1>
 
         <motion.div
-          className="mt-8 flex flex-wrap items-center gap-4 text-sm text-gray-500"
+          className="mt-6 flex flex-wrap items-center justify-start gap-4 text-sm text-zinc-400"
           custom={2}
           variants={fadeInVariants}
         >
           <span>{date}</span>
-          <span className="h-1 w-1 rounded-full bg-gray-300" />
+          <span className="h-1 w-1 rounded-full bg-zinc-700" />
           <span>{readTime}</span>
-          <span className="h-1 w-1 rounded-full bg-gray-300" />
+          <span className="h-1 w-1 rounded-full bg-zinc-700" />
           <div className="flex items-center gap-2">
             <img
               src={authorImage}
               alt={author}
-              className="h-5 w-5 rounded-full object-cover"
+              className="h-6 w-6 rounded-full object-cover border border-zinc-800"
             />
-            <span>{author}</span>
+            <span className="text-zinc-300 font-medium">{author}</span>
           </div>
         </motion.div>
       </motion.section>
 
-      <motion.div
-        className="mx-auto max-w-3xl px-6"
-        custom={3}
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeInVariants}
-      >
-        <motion.img
-          src={image}
-          alt={title}
-          className="w-full rounded-2xl object-cover"
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
+      {/* Main Cover Image */}
+      {image?.trim() && (
+        <motion.div
+          className="mx-auto max-w-7xl px-6 relative z-10"
+          custom={3}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeInVariants}
+        >
+          <motion.img
+            src={image}
+            alt={title}
+            className="w-full rounded-3xl object-cover border border-zinc-800/60 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
+      )}
 
+      {/* Body Content & Sidebar */}
       <motion.section
-        className="mx-auto max-w-7xl px-6 py-20"
+        className="mx-auto max-w-7xl px-6 pt-4 pb-12 relative z-10"
         custom={4}
         initial="hidden"
         whileInView="visible"
@@ -147,14 +155,15 @@ export function PremiumBlogArticle({
       >
         <div className="grid gap-12 lg:grid-cols-[1fr_320px]">
           <div>
-            <article className="space-y-10 prose prose-lg prose-gray max-w-none">
+            <article className="space-y-8 prose prose-invert prose-zinc max-w-none">
               {content.map((block: any, index: number) => {
                 const id = headingId(block.text || `section-${index}`, index);
+                
                 if (block.type === "paragraph") {
                   return (
                     <p
                       key={index}
-                      className="my-8 text-lg leading-relaxed text-gray-700"
+                      className="my-6 text-lg leading-relaxed text-zinc-300"
                       dangerouslySetInnerHTML={{ __html: toHtml(block.text || "") }}
                     />
                   );
@@ -165,7 +174,7 @@ export function PremiumBlogArticle({
                     <h2
                       id={id}
                       key={index}
-                      className="my-12 mt-16 text-4xl font-bold text-black"
+                      className="my-10 mt-14 text-3xl md:text-4xl font-bold text-white tracking-tight border-b border-zinc-900 pb-3"
                       dangerouslySetInnerHTML={{ __html: toHtml(block.text || "") }}
                     />
                   );
@@ -176,7 +185,7 @@ export function PremiumBlogArticle({
                     <h3
                       id={id}
                       key={index}
-                      className="my-8 mt-12 text-2xl font-semibold text-black"
+                      className="my-6 mt-10 text-xl md:text-2xl font-semibold text-white tracking-tight"
                       dangerouslySetInnerHTML={{ __html: toHtml(block.text || "") }}
                     />
                   );
@@ -186,7 +195,7 @@ export function PremiumBlogArticle({
                   return (
                     <blockquote
                       key={index}
-                      className="my-12 border-l-4 border-black py-6 pl-8 italic text-gray-800"
+                      className="my-10 border-l-4 border-[#f69507] bg-zinc-950/40 rounded-r-2xl py-6 pl-8 italic text-zinc-200"
                       dangerouslySetInnerHTML={{ __html: toHtml(block.text || "") }}
                     />
                   );
@@ -194,23 +203,29 @@ export function PremiumBlogArticle({
 
                 if (block.type === "image") {
                   return (
-                    <motion.img
-                      key={index}
-                      src={block.src}
-                      alt={block.caption || "Article image"}
-                      className="my-12 w-full rounded-xl"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    />
+                    <div key={index} className="my-10">
+                      <motion.img
+                        src={block.src}
+                        alt={block.caption || "Article image"}
+                        className="w-full rounded-2xl border border-zinc-800/80"
+                        whileHover={{ scale: 1.01 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      {block.caption && (
+                        <p className="mt-3 text-center text-sm text-zinc-500 italic">
+                          {block.caption}
+                        </p>
+                      )}
+                    </div>
                   );
                 }
 
                 if (block.type === "points") {
                   return (
-                    <ul key={index} className="my-8 space-y-3 pl-6">
+                    <ul key={index} className="my-6 space-y-3 pl-6 list-disc text-zinc-300">
                       {Array.isArray(block.items) &&
                         block.items.map((item: string, i: number) => (
-                          <li key={i} className="list-disc text-gray-700">
+                          <li key={i} className="leading-relaxed">
                             {item}
                           </li>
                         ))}
@@ -220,10 +235,10 @@ export function PremiumBlogArticle({
 
                 if (block.type === "numbered-list") {
                   return (
-                    <ol key={index} className="my-8 space-y-3 pl-6 list-decimal">
+                    <ol key={index} className="my-6 space-y-3 pl-6 list-decimal text-zinc-300">
                       {Array.isArray(block.items) &&
                         block.items.map((item: string, i: number) => (
-                          <li key={i} className="text-gray-700">
+                          <li key={i} className="leading-relaxed">
                             {item}
                           </li>
                         ))}
@@ -233,10 +248,10 @@ export function PremiumBlogArticle({
 
                 if (block.type === "divider") {
                   return (
-                    <div key={index} className="flex items-center gap-4 py-4">
-                      <div className="flex-1 border-t border-gray-200" />
-                      <span className="text-gray-400 tracking-[8px] text-xs">· · ·</span>
-                      <div className="flex-1 border-t border-gray-200" />
+                    <div key={index} className="flex items-center gap-4 py-8">
+                      <div className="flex-1 border-t border-zinc-800/60" />
+                      <span className="text-zinc-600 tracking-[8px] text-xs">· · ·</span>
+                      <div className="flex-1 border-t border-zinc-800/60" />
                     </div>
                   );
                 }
@@ -245,13 +260,13 @@ export function PremiumBlogArticle({
                   return (
                     <div
                       key={index}
-                      className="my-12 rounded-3xl border border-gray-200 bg-gray-50 p-8"
+                      className="my-10 rounded-3xl border border-[#f69507]/20 bg-[#f69507]/5 p-8 text-zinc-300"
                     >
-                      <p className="text-sm uppercase tracking-[0.3em] text-gray-500 mb-4">
+                      <p className="text-xs uppercase tracking-[0.3em] text-[#f69507] font-semibold mb-4">
                         {block.calloutType || "Note"}
                       </p>
                       <div
-                        className="text-lg text-gray-800 leading-relaxed"
+                        className="text-lg text-zinc-200 leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: toHtml(block.text || "") }}
                       />
                     </div>
@@ -263,56 +278,56 @@ export function PremiumBlogArticle({
             </article>
           </div>
 
+          {/* Sidebar */}
           <aside className="hidden lg:block">
             <div className="sticky top-28 space-y-6">
-              {/* CTA Box - Premium Black */}
-              <div className="rounded-3xl bg-gradient-to-br from-black via-gray-900 to-black p-8 text-white shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-gray-800/50">
-                <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-semibold">
-                  Download & Try
-                </span>
-                <h2 className="mt-5 text-2xl font-semibold leading-tight">
-                  Download and try Cluely for free today
+              {/* CTA Box - Premium Re-styled to Get In Touch */}
+              <div className="rounded-3xl bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950 p-8 text-white shadow-[0_30px_60px_rgba(0,0,0,0.4)] border border-zinc-800/80">
+                <h2 className="text-2xl font-bold leading-tight text-white">
+                  Get in Touch
                 </h2>
-                <p className="mt-4 text-sm text-gray-300 leading-relaxed">
-                  Get instant access to transform your workflow with intelligent simulations.
+                <p className="mt-3 text-sm text-zinc-400 leading-relaxed">
+                  Get instant access to transform how you hire & train global teams with AI native simulations.
                 </p>
-                <Link
-                  href="/contact-us"
-                  className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-gray-100 active:scale-95"
+                <a
+                  href={CAL_BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#f69507] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[#e08806] active:scale-95 shadow-md shadow-[#f69507]/20"
                 >
-                  Get Started →
-                </Link>
+                  Get in touch
+                </a>
               </div>
 
               {/* Table of Contents Box */}
-              <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+              <div className="rounded-3xl border border-zinc-800/80 bg-zinc-950/40 backdrop-blur-md p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="w-1 h-6 rounded-full bg-black" />
-                  <p className="text-xs uppercase tracking-[0.3em] text-gray-600 font-semibold">
+                  <div className="w-1.5 h-6 rounded-full bg-[#f69507]" />
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-bold">
                     Table of contents
                   </p>
                 </div>
                 
-                <nav className="space-y-3">
+                <nav className="space-y-2">
                   {tocItems.length > 0 ? (
                     tocItems.map((item, idx) => (
                       <a
                         key={item.id}
                         href={`#${item.id}`}
-                        className={`flex items-start gap-3 px-3 py-2 rounded-lg transition-all hover:bg-gray-50 group ${
+                        className={`flex items-start gap-3 px-3 py-2 rounded-xl transition-all hover:bg-zinc-900/60 group ${
                           item.level === 2 ? "ml-4" : ""
                         }`}
                       >
-                        <span className="text-xs text-gray-400 pt-1 font-mono min-w-max">
+                        <span className="text-xs text-zinc-600 pt-0.5 font-mono min-w-max">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
-                        <span className="text-sm text-gray-700 group-hover:text-black transition-colors font-medium">
+                        <span className="text-sm text-zinc-400 group-hover:text-[#f69507] transition-colors font-medium">
                           {item.title}
                         </span>
                       </a>
                     ))
                   ) : (
-                    <p className="text-sm text-gray-500 italic">No headings found in this article.</p>
+                    <p className="text-sm text-zinc-500 italic">No headings found.</p>
                   )}
                 </nav>
               </div>
@@ -321,18 +336,19 @@ export function PremiumBlogArticle({
         </div>
       </motion.section>
 
+      {/* Bottom CTA */}
       <motion.section
-        className="mx-auto max-w-3xl border-t border-gray-200 px-6 py-20"
+        className="mx-auto max-w-3xl border-t border-zinc-900 px-6 py-20 relative z-10"
         custom={5}
         initial="hidden"
         whileInView="visible"
         variants={fadeInVariants}
       >
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-black">
+        <div className="text-center bg-gradient-to-b from-zinc-950 to-zinc-900 border border-zinc-800/50 rounded-3xl p-12">
+          <h2 className="text-3xl font-bold text-white tracking-tight">
             Ready to transform your institution?
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-lg text-zinc-400 max-w-md mx-auto">
             Join hundreds of leading institutions already using Pi Dot.
           </p>
           <motion.div
@@ -340,18 +356,21 @@ export function PremiumBlogArticle({
             whileHover={{ y: -2 }}
             transition={{ duration: 0.2 }}
           >
-            <Link
-              href="/contact-us"
-              className="inline-block rounded-full bg-black px-8 py-3 font-medium text-white transition-all duration-200 hover:bg-gray-900 active:translate-y-0.5"
+            <a
+              href={CAL_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full bg-[#f69507] px-8 py-3.5 font-bold text-black transition-all duration-200 hover:bg-[#e08806] active:translate-y-0.5"
             >
-              Get Started
-            </Link>
+              Get in touch
+            </a>
           </motion.div>
         </div>
       </motion.section>
 
+      {/* Back to Blog */}
       <motion.div
-        className="mx-auto max-w-3xl px-6 py-12 text-center"
+        className="mx-auto max-w-3xl px-6 py-12 text-center relative z-10"
         custom={6}
         initial="hidden"
         whileInView="visible"
@@ -359,7 +378,7 @@ export function PremiumBlogArticle({
       >
         <Link
           href="/blog"
-          className="text-sm text-gray-600 transition-colors hover:text-black"
+          className="text-sm text-zinc-500 transition-colors hover:text-white"
         >
           ← Back to Blog
         </Link>

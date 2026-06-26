@@ -71,7 +71,7 @@ function mapBlogs(blogs: ReturnType<typeof getVisibleBlogs>) {
         return "Recent";
       }
     })(),
-    image: blog.image?.trim() ? blog.image : "/blog/hero.png",
+    image: blog.image?.trim() ? blog.image : "/assets/InfiniteCardImages/img1.png",
     link: `/blog/${blog.slug}`,
   }));
 }

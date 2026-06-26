@@ -67,7 +67,11 @@ export default function CorporateSimulation() {
         <IntegrateMorningSection />
         <EditorSection />
         <EmailWithReactSection />
-        <TestimonialCarousel />
+        
+        {/* ================= TESTIMONIALS ================= */}
+        <section className="mt-36">
+          <TestimonialCarousel />
+        </section>
       </div>
 
       {/* ================= FOOTER ================= */}

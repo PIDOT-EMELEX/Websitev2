@@ -26,7 +26,7 @@ export default function BlogDetailPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-black">
       {/* Sticky Banner */}
       <StickyBanner
         open={isBannerOpen}
@@ -49,10 +49,9 @@ export default function BlogDetailPage() {
         <NavbarDemo />
       </motion.div>
 
-      {/* PAGE CONTENT */}
       <div
         className={`flex-1 transition-all duration-300 ${
-          isBannerOpen ? "pt-[200px] sm:pt-[176px]" : "pt-[140px] sm:pt-[120px]"
+          isBannerOpen ? "pt-[150px] sm:pt-[130px]" : "pt-[100px] sm:pt-[80px]"
         }`}
       >
         <PremiumBlogArticle
@@ -66,7 +65,7 @@ export default function BlogDetailPage() {
           readTime={blog.readTime}
           author={blog.author}
           authorImage={blog.authorImage || "/blog/roy.jpg"}
-          image={blog.image || "/blog/hero.png"}
+          image={blog.image || ""}
           content={blog.content || []}
         />
       </div>

@@ -64,7 +64,7 @@ export default function AdminBlogsPage() {
       title,
       slug,
       excerpt,
-      image: image || "/blog/hero.png",
+      image: image || "",
       category,
       college: "",
       author,
@@ -363,6 +363,39 @@ export default function AdminBlogsPage() {
                     Edit
                   </button>
 
+                  {/* DUPLICATE */}
+                  <button
+                    onClick={() => {
+                      const newTitle = `${blog.title} (Copy)`;
+                      const baseSlug = blog.slug;
+                      let newSlug = `${baseSlug}-copy`;
+                      
+                      // Check for slug collisions and generate a unique one
+                      const existingBlogs = getBlogs();
+                      let counter = 1;
+                      while (existingBlogs.some((b) => b.slug === newSlug)) {
+                        newSlug = `${baseSlug}-copy-${counter}`;
+                        counter++;
+                      }
+
+                      const newBlog: BlogPost = {
+                        ...blog,
+                        id: Date.now().toString() + Math.random().toString(36).substring(2, 11),
+                        title: newTitle,
+                        slug: newSlug,
+                        featured: false,
+                        showOnBlogPage: false,
+                        createdAt: new Date().toISOString(),
+                      };
+
+                      saveBlog(newBlog);
+                      setBlogs(getBlogs());
+                    }}
+                    className="rounded-xl bg-purple-600 px-5 py-2 text-sm hover:bg-purple-500 transition-colors"
+                  >
+                    Duplicate
+                  </button>
+
                   {/* TOGGLE VISIBILITY */}
                   <button
                     onClick={() => {
@@ -380,6 +413,24 @@ export default function AdminBlogsPage() {
                     {blog.showOnBlogPage ? "Published" : "Draft"}
                   </button>
 
+                  {/* TOGGLE FEATURED */}
+                  <button
+                    onClick={() => {
+                      updateBlog(blog.slug, {
+                        featured: !blog.featured,
+                      });
+                      setBlogs(getBlogs());
+                    }}
+                    className={`rounded-xl px-5 py-2 text-sm transition-colors ${
+                      blog.featured
+                        ? "bg-[#f69507] text-black hover:bg-[#e68500]"
+                        : "bg-zinc-700 hover:bg-zinc-600 text-white"
+                    }`}
+                    title={blog.featured ? "Remove from featured" : "Mark as featured"}
+                  >
+                    {blog.featured ? "⭐ Featured" : "Feature"}
+                  </button>
+
                   {/* DELETE */}
                   <button
                     onClick={() => {
@@ -388,7 +439,7 @@ export default function AdminBlogsPage() {
                           "Are you sure you want to delete this blog?"
                         )
                       ) {
-                        deleteBlog(blog.id);
+                        deleteBlog(blog.slug);
                         setBlogs(getBlogs());
                       }
                     }}

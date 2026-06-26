@@ -297,8 +297,8 @@ export default function IntegrateMorningUI({
   };
 
   return (
-    <section className="w-full flex justify-center py-24">
-      <div className="max-w-5xl w-full flex flex-col items-center text-center">
+    <section className="mx-auto max-w-7xl px-6 py-12 sm:py-24">
+      <div className="w-full flex flex-col items-center text-center">
 
         {/* Video Container */}
         <div

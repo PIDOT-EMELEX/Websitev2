@@ -33,6 +33,7 @@ import {
   Link as LinkIcon,
   Underline,
   Strikethrough,
+  Folder,
 } from "lucide-react";
 import { getBlogs, updateBlog } from "@/lib/blog-storage";
 
@@ -500,6 +501,30 @@ export default function BlogEditorPage() {
   const [isSaving, setIsSaving]       = useState(false);
   const [savedAt, setSavedAt]         = useState<Date | null>(null);
 
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [categorySearch, setCategorySearch] = useState("");
+  const [allCategories, setAllCategories] = useState<string[]>([]);
+
+  const defaultCategories = [
+    "General",
+    "Placements",
+    "Hackathons",
+    "Workshops",
+    "Industry Connect",
+    "Case Studies",
+    "Insights",
+    "AI & Technology",
+    "Success Stories",
+  ];
+
+  useEffect(() => {
+    const blogsList = getBlogs();
+    const uniqueCats = Array.from(
+      new Set([...defaultCategories, ...blogsList.map((b) => b.category).filter(Boolean)])
+    ).sort();
+    setAllCategories(uniqueCats);
+  }, [category]);
+
   const titleRef   = useGrow(title);
   const excerptRef = useGrow(excerpt);
 
@@ -654,11 +679,84 @@ export default function BlogEditorPage() {
 
           {/* ── Meta row ── */}
           <div className="flex flex-wrap gap-2 mb-6">
-            <select value={category} onChange={e => { setCategory(e.target.value); markDirty(); }}
-              className="bg-zinc-900 border border-zinc-800 rounded-full px-4 py-1.5 text-sm text-zinc-300 outline-none hover:border-zinc-600 transition-colors">
-              {["General","Placements","Hackathons","Workshops","Industry Connect","AI & Technology","Case Studies","Insights","Success Stories"].map(c =>
-                <option key={c}>{c}</option>)}
-            </select>
+            {/* Custom Category Combobox */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setCategoryOpen(!categoryOpen)}
+                className="flex items-center gap-2 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-full px-4 py-1.5 text-sm text-zinc-300 outline-none transition-colors"
+              >
+                <Folder size={13} className="text-[#f69507]" />
+                <span>{category || "Select Category"}</span>
+                <ChevronDown size={14} className="text-zinc-500" />
+              </button>
+
+              {categoryOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => { setCategoryOpen(false); setCategorySearch(""); }} />
+                  <div className="absolute left-0 top-full mt-2 z-50 bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl p-3 w-64 animate-in fade-in-0 zoom-in-95 duration-150">
+                    <input
+                      type="text"
+                      value={categorySearch}
+                      onChange={(e) => setCategorySearch(e.target.value)}
+                      placeholder="Search or create category..."
+                      className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-[#f69507] mb-2 placeholder:text-zinc-600"
+                      autoFocus
+                    />
+                    <div className="max-h-48 overflow-y-auto space-y-1 pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
+                      {allCategories
+                        .filter((c) =>
+                          c.toLowerCase().includes(categorySearch.toLowerCase())
+                        )
+                        .map((c) => (
+                          <button
+                            key={c}
+                            type="button"
+                            onClick={() => {
+                              setCategory(c);
+                              setCategoryOpen(false);
+                              setCategorySearch("");
+                              markDirty();
+                            }}
+                            className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs text-left transition-colors ${
+                              category === c
+                                ? "bg-[#f69507]/10 text-[#f69507] font-medium"
+                                : "text-zinc-300 hover:bg-zinc-900"
+                            }`}
+                          >
+                            <span>{c}</span>
+                            {category === c && <Check size={12} />}
+                          </button>
+                        ))}
+                      
+                      {categorySearch &&
+                        !allCategories.some(
+                          (c) => c.toLowerCase() === categorySearch.toLowerCase()
+                        ) && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newCat = categorySearch.trim();
+                              if (newCat) {
+                                setCategory(newCat);
+                                setAllCategories((prev) => Array.from(new Set([...prev, newCat])).sort());
+                                setCategoryOpen(false);
+                                setCategorySearch("");
+                                markDirty();
+                              }
+                            }}
+                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-left text-[#f69507] hover:bg-zinc-900 transition-colors font-medium border-t border-zinc-900 mt-2 pt-2"
+                          >
+                            <Plus size={12} />
+                            <span>Create "{categorySearch}"</span>
+                          </button>
+                        )}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
             <input value={author} onChange={e => { setAuthor(e.target.value); markDirty(); }}
               placeholder="Author name"
               className="bg-zinc-900 border border-zinc-800 rounded-full px-4 py-1.5 text-sm text-zinc-300 outline-none hover:border-zinc-600 transition-colors placeholder:text-zinc-600 w-40" />

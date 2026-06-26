@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Trash2, ToggleLeft, ToggleRight } from "lucide-react";
+import { Trash2, ToggleLeft, ToggleRight, Upload, User, ImageIcon, Copy } from "lucide-react";
 
 import {
   getTestimonials,
@@ -11,6 +11,80 @@ import {
   updateTestimonial,
   Testimonial,
 } from "@/lib/testimonial-storage";
+
+function ImageUploadField({
+  label,
+  value,
+  onChange,
+  previewShape,
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  previewShape: "circle" | "rect";
+  placeholder: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-xs font-medium text-zinc-400 uppercase tracking-wide">{label}</span>
+      <div className="flex items-center gap-3">
+        {/* Preview */}
+        <div
+          className={`shrink-0 bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center ${
+            previewShape === "circle"
+              ? "h-12 w-12 rounded-full"
+              : "h-12 w-20 rounded-lg"
+          }`}
+        >
+          {value ? (
+            <img src={value} alt="preview" className="w-full h-full object-cover" />
+          ) : previewShape === "circle" ? (
+            <User size={18} className="text-zinc-600" />
+          ) : (
+            <ImageIcon size={18} className="text-zinc-600" />
+          )}
+        </div>
+
+        {/* Upload button */}
+        <label className="cursor-pointer inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-300 hover:border-[#f69507] hover:text-[#f69507] transition-colors">
+          <Upload size={14} />
+          Upload
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) onChange(URL.createObjectURL(file));
+            }}
+          />
+        </label>
+
+        {/* URL fallback */}
+        <input
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="flex-1 min-w-0 rounded-xl bg-black border border-zinc-800 focus:border-[#f69507] px-3 py-2.5 text-sm outline-none transition-colors text-zinc-300 placeholder:text-zinc-600"
+        />
+
+        {/* Clear */}
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="shrink-0 text-xs text-zinc-600 hover:text-red-400 transition-colors"
+          >
+            ✕
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function TestimonialsAdminPage() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -103,18 +177,32 @@ export default function TestimonialsAdminPage() {
             onChange={(e) => setCompany(e.target.value)}
             className="w-full rounded-xl bg-black border border-zinc-800 focus:border-[#f69507] p-4 outline-none transition-colors"
           />
-          <input
-            placeholder="Avatar URL (optional)"
-            value={avatarUrl}
-            onChange={(e) => setAvatarUrl(e.target.value)}
-            className="w-full rounded-xl bg-black border border-zinc-800 focus:border-[#f69507] p-4 outline-none transition-colors"
-          />
-          <input
-            placeholder="Logo URL (optional)"
-            value={logoUrl}
-            onChange={(e) => setLogoUrl(e.target.value)}
-            className="w-full rounded-xl bg-black border border-zinc-800 focus:border-[#f69507] p-4 outline-none transition-colors md:col-span-2"
-          />
+
+          {/* Spacer on desktop so textarea takes full width */}
+          <div className="hidden md:block" />
+
+          {/* Avatar upload — full width */}
+          <div className="md:col-span-2">
+            <ImageUploadField
+              label="Avatar / Profile Photo"
+              value={avatarUrl}
+              onChange={setAvatarUrl}
+              previewShape="circle"
+              placeholder="or paste a URL…"
+            />
+          </div>
+
+          {/* Logo upload — full width */}
+          <div className="md:col-span-2">
+            <ImageUploadField
+              label="Company Logo"
+              value={logoUrl}
+              onChange={setLogoUrl}
+              previewShape="rect"
+              placeholder="or paste a URL…"
+            />
+          </div>
+
           <textarea
             rows={4}
             placeholder="Testimonial quote *"
@@ -173,6 +261,24 @@ export default function TestimonialsAdminPage() {
 
             {/* Right: Actions */}
             <div className="flex items-center gap-3 shrink-0">
+              {/* DUPLICATE */}
+              <button
+                onClick={() => {
+                  saveTestimonial({
+                    ...t,
+                    id: Date.now().toString() + Math.random().toString(36).substring(2, 11),
+                    name: `${t.name} (Copy)`,
+                    createdAt: new Date().toISOString(),
+                  });
+                  refresh();
+                }}
+                className="flex items-center gap-2 rounded-xl bg-purple-600/20 px-4 py-2 text-sm font-medium text-purple-400 transition hover:bg-purple-600/30"
+                title="Duplicate"
+              >
+                <Copy size={16} />
+                Duplicate
+              </button>
+
               <button
                 onClick={() => handleToggle(t.id, t.enabled)}
                 className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition ${
