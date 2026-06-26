@@ -19,7 +19,8 @@ const DEFAULT_TESTIMONIAL: Testimonial = {
 };
 
 export default function ContactHero() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([DEFAULT_TESTIMONIAL]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [mounted, setMounted] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [fading, setFading] = useState(false);
@@ -27,8 +28,11 @@ export default function ContactHero() {
   useEffect(() => {
     const loaded = getEnabledTestimonials();
     if (loaded.length > 0) {
-      window.setTimeout(() => setTestimonials(loaded), 0);
+      setTestimonials(loaded);
+    } else {
+      setTestimonials([DEFAULT_TESTIMONIAL]);
     }
+    setMounted(true);
   }, []);
 
   const count = testimonials.length;
@@ -59,7 +63,7 @@ export default function ContactHero() {
     return () => clearInterval(timer);
   }, [isPaused, count, next]);
 
-  const t = testimonials[activeIdx];
+  const t = testimonials[activeIdx] || DEFAULT_TESTIMONIAL;
 
   return (
     <section className="relative min-h-screen bg-black text-white overflow-hidden flex items-center">
@@ -100,7 +104,7 @@ export default function ContactHero() {
             </div>
 
             {/* Testimonial content */}
-            <div className="relative z-10 mt-auto">
+            <div className="relative z-10 mt-auto w-full">
               {/* Quote icon */}
               <div className="mb-5 text-white/60">
                 <svg width="32" height="24" fill="currentColor" viewBox="0 0 32 24">
@@ -108,57 +112,74 @@ export default function ContactHero() {
                 </svg>
               </div>
 
-              {/* Quote — single active item fade */}
-              <div className="relative min-h-[96px]">
-                <blockquote
-                  className={`transition-all duration-300 ease-in-out ${
-                    fading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                  }`}
-                >
-                  <p className="text-xl font-semibold text-white leading-relaxed">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                </blockquote>
-              </div>
-
-              {/* Author — single active item fade */}
-              <div className="mt-8">
-                <div
-                  className={`flex items-center gap-3 transition-all duration-300 ease-in-out ${
-                    fading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-                  }`}
-                >
-                  <img
-                    src={t.avatarUrl || "/blog/roy.jpg"}
-                    alt={t.name}
-                    className="h-10 w-10 rounded-full object-cover border-2 border-white/30"
-                  />
-                  <div>
-                    <p className="font-semibold text-white text-sm">{t.name}</p>
-                    <p className="text-white/70 text-xs">
-                      {t.role}
-                      {t.company && `, ${t.company}`}
-                    </p>
+              {!mounted || testimonials.length === 0 ? (
+                <div className="space-y-4 animate-pulse w-full">
+                  <div className="h-5 bg-white/20 rounded-md w-11/12" />
+                  <div className="h-5 bg-white/20 rounded-md w-9/12" />
+                  <div className="h-5 bg-white/20 rounded-md w-10/12" />
+                  <div className="flex items-center gap-3 pt-6">
+                    <div className="h-10 w-10 rounded-full bg-white/25" />
+                    <div className="space-y-2 flex-1">
+                      <div className="h-3 bg-white/25 rounded w-1/3" />
+                      <div className="h-3 bg-white/20 rounded w-1/2" />
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Dot pagination */}
-              {count > 1 && (
-                <div className="flex gap-2 mt-8">
-                  {testimonials.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => goTo(i)}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        i === activeIdx
-                          ? "w-8 bg-white"
-                          : "w-2 bg-white/40 hover:bg-white/60"
+              ) : (
+                <>
+                  {/* Quote — single active item fade */}
+                  <div className="relative min-h-[96px]">
+                    <blockquote
+                      className={`transition-all duration-300 ease-in-out ${
+                        fading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
                       }`}
-                      aria-label={`Go to testimonial ${i + 1}`}
-                    />
-                  ))}
-                </div>
+                    >
+                      <p className="text-xl font-semibold text-white leading-relaxed">
+                        &ldquo;{t.quote}&rdquo;
+                      </p>
+                    </blockquote>
+                  </div>
+
+                  {/* Author — single active item fade */}
+                  <div className="mt-8">
+                    <div
+                      className={`flex items-center gap-3 transition-all duration-300 ease-in-out ${
+                        fading ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+                      }`}
+                    >
+                      <img
+                        src={t.avatarUrl || "/blog/roy.jpg"}
+                        alt={t.name}
+                        className="h-10 w-10 rounded-full object-cover border-2 border-white/30"
+                      />
+                      <div>
+                        <p className="font-semibold text-white text-sm">{t.name}</p>
+                        <p className="text-white/70 text-xs">
+                          {t.role}
+                          {t.company && `, ${t.company}`}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dot pagination */}
+                  {count > 1 && (
+                    <div className="flex gap-2 mt-8">
+                      {testimonials.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => goTo(i)}
+                          className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                            i === activeIdx
+                              ? "w-8 bg-white"
+                              : "w-2 bg-white/40 hover:bg-white/60"
+                          }`}
+                          aria-label={`Go to testimonial ${i + 1}`}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

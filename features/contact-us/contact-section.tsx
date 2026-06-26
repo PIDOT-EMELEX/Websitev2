@@ -140,27 +140,29 @@ export default function ContactSection() {
                 key={label}
                 custom={i}
                 variants={fadeUp}
-                className={`group relative rounded-2xl border ${border} bg-gradient-to-br ${color} p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(246,149,7,0.1)] ${href ? "cursor-pointer" : ""}`}
+                className={`group relative rounded-2xl border ${border} bg-gradient-to-br ${color} p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(246,149,7,0.1)] ${href ? "cursor-pointer" : ""} h-full flex flex-col`}
               >
-                {/* Icon */}
-                <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-900/80 border border-zinc-800`}>
-                  <Icon size={20} className={iconColor} />
+                <div className="flex-1">
+                  {/* Icon */}
+                  <div className={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-900/80 border border-zinc-800`}>
+                    <Icon size={20} className={iconColor} />
+                  </div>
+
+                  {/* Label */}
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-zinc-500">
+                    {label}
+                  </p>
+
+                  {/* Value */}
+                  <p className="text-base font-semibold text-white">{value}</p>
+
+                  {/* Sub */}
+                  <p className="mt-1 text-sm text-zinc-500">{sub}</p>
                 </div>
-
-                {/* Label */}
-                <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-zinc-500">
-                  {label}
-                </p>
-
-                {/* Value */}
-                <p className="text-base font-semibold text-white">{value}</p>
-
-                {/* Sub */}
-                <p className="mt-1 text-sm text-zinc-500">{sub}</p>
 
                 {/* Hover arrow */}
                 {href && (
-                  <div className="mt-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <div className="mt-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 shrink-0">
                     <ArrowRight size={14} className="text-zinc-500" />
                   </div>
                 )}
@@ -168,11 +170,11 @@ export default function ContactSection() {
             );
 
             return href ? (
-              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block">
+              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block h-full">
                 {card}
               </a>
             ) : (
-              <div key={label}>{card}</div>
+              <div key={label} className="h-full">{card}</div>
             );
           })}
         </motion.div>
