@@ -1,6 +1,10 @@
 import Button from "../ui/HeroSectionButtonUI";
-import BlackCubeScene from "../BlackCubeScene";
+import dynamic from "next/dynamic";
 import { BookCallLink } from "@/components/ui/book-call-link";
+
+const BlackCubeScene = dynamic(() => import("../BlackCubeScene"), {
+  ssr: false,
+});
 
 export default function HeroSection() {
   return (

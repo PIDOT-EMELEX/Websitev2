@@ -164,7 +164,7 @@ const CubeAssembly = () => {
   });
 
   return (
-    <group ref={groupRef} scale={1.176}>
+    <group ref={groupRef} scale={0.7}>
       <group ref={pivotRef} />
       {cubeData.map((data, i) => (
         <Cubelet 
@@ -183,7 +183,7 @@ const CubeAssembly = () => {
 export default function BlackCubeScene() {
   return (
     <div style={{ width: '100%', height: '100%', background: '#000' }}>
-      <Canvas camera={{ position: [5.8, 5.8, 5.8], fov: 60 }}>
+      <Canvas camera={{ position: [6.0, 6.0, 6.0], fov: 45 }}>
         <color attach="background" args={['#000000']} />
         
         <Environment preset="studio" />
