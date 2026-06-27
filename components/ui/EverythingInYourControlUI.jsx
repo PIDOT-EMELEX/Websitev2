@@ -17,6 +17,19 @@ useEffect(() => {
   return (
     <div dir="ltr" data-orientation="horizontal">
         
+        {/* MOBILE ACTIVE TAB LABEL */}
+        <div className="lg:hidden text-center mb-6 px-4">
+          <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-zinc-950 text-[#f69507] text-sm font-semibold tracking-wide shadow-lg">
+            <span className="w-2 h-2 rounded-full bg-[#f69507] animate-pulse" />
+            {activeTab === 1 && "Design the role before you hire"}
+            {activeTab === 2 && "Simulate your business environment"}
+            {activeTab === 3 && "Control evaluation criteria"}
+            {activeTab === 4 && "Watch candidates perform"}
+            {activeTab === 5 && "Shortlist using performance signals"}
+            {activeTab === 6 && "Hire your right candidate"}
+          </div>
+        </div>
+        
         {/* TAB LIST */}
         <div
         role="tablist"
