@@ -17,16 +17,25 @@ useEffect(() => {
   return (
     <div dir="ltr" data-orientation="horizontal">
         
-        {/* MOBILE ACTIVE TAB LABEL */}
-        <div className="lg:hidden text-center mb-6 px-4">
-          <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/10 bg-zinc-950 text-[#f69507] text-sm font-semibold tracking-wide shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-[#f69507] animate-pulse" />
-            {activeTab === 1 && "Design the role before you hire"}
-            {activeTab === 2 && "Simulate your business environment"}
-            {activeTab === 3 && "Control evaluation criteria"}
-            {activeTab === 4 && "Watch candidates perform"}
-            {activeTab === 5 && "Shortlist using performance signals"}
-            {activeTab === 6 && "Hire your right candidate"}
+        {/* MOBILE ACTIVE TAB DROPDOWN (RESTORED STYLE) */}
+        <div className="lg:hidden mb-6 px-2">
+          <div className="w-full border border-white/20 rounded-2xl p-4 text-left text-white bg-zinc-950/80 backdrop-blur-md flex justify-between items-center shadow-lg">
+            <span className="font-semibold text-sm tracking-wide">
+              {activeTab === 1 && "Design the role before you hire"}
+              {activeTab === 2 && "Simulate your business environment"}
+              {activeTab === 3 && "Control evaluation criteria"}
+              {activeTab === 4 && "Watch candidates perform"}
+              {activeTab === 5 && "Shortlist using performance signals"}
+              {activeTab === 6 && "Hire your right candidate"}
+            </span>
+            <svg
+              className="w-4 h-4 text-white/50 shrink-0 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+            </svg>
           </div>
         </div>
         
@@ -1376,6 +1385,22 @@ useEffect(() => {
                 />
             </div>
             </div>
+        </div>
+
+        {/* CAROUSEL DOTS INDICATORS */}
+        <div className="flex justify-center gap-2 mt-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <button
+              key={i}
+              onClick={() => setActiveTab(i)}
+              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                activeTab === i 
+                  ? "w-8 bg-[#f69507]" 
+                  : "w-2.5 bg-white/20 hover:bg-white/40"
+              }`}
+              aria-label={`Go to slide ${i}`}
+            />
+          ))}
         </div>
     </div>
   );
