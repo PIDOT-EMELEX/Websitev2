@@ -2,12 +2,8 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="bg-black py-32 text-white">
+    <section className="bg-black pb-32 pt-16 text-white">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="text-center text-6xl font-black uppercase mb-18">
-              About Us.
-            </h2>
-
         {/* TOP */}
         <div className="grid gap-12 lg:grid-cols-12">
 

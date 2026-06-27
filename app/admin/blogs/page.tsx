@@ -358,7 +358,7 @@ export default function AdminBlogsPage() {
                     onClick={() =>
                       router.push(`/admin/editor/${blog.slug}`)
                     }
-                    className="rounded-xl bg-blue-600 px-5 py-2 text-sm hover:bg-blue-500 transition-colors"
+                    className="rounded-xl bg-[#f69507]/20 text-[#f69507] px-5 py-2 text-sm hover:bg-[#f69507]/30 transition-colors"
                   >
                     Edit
                   </button>
@@ -391,7 +391,7 @@ export default function AdminBlogsPage() {
                       saveBlog(newBlog);
                       setBlogs(getBlogs());
                     }}
-                    className="rounded-xl bg-purple-600 px-5 py-2 text-sm hover:bg-purple-500 transition-colors"
+                    className="rounded-xl bg-zinc-800 px-5 py-2 text-sm hover:bg-zinc-700 transition-colors"
                   >
                     Duplicate
                   </button>
@@ -406,8 +406,8 @@ export default function AdminBlogsPage() {
                     }}
                     className={`rounded-xl px-5 py-2 text-sm transition-colors ${
                       blog.showOnBlogPage
-                        ? "bg-green-600 hover:bg-green-500"
-                        : "bg-zinc-700 hover:bg-zinc-600"
+                        ? "bg-[#f69507] hover:bg-[#d17c00] text-black"
+                        : "bg-zinc-800 hover:bg-zinc-700"
                     }`}
                   >
                     {blog.showOnBlogPage ? "Published" : "Draft"}

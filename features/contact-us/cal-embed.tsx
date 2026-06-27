@@ -83,7 +83,7 @@ export default function CalEmbed() {
       style={{
         width: "100%",
         height: "100%",
-        minHeight: "980px",
+        minHeight: "580px",
         overflow: "hidden",
       }}
     />

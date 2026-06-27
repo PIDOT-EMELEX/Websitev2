@@ -1,335 +1,121 @@
-import Image from "next/image";
-import {
-  Instagram,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
+"use client";
 
-const teamMembers = [
-  {
-    name: "Lisa Thompson",
-    role: "Senior Designer",
-    image: "/team/team1.jpg",
-  },
-  {
-    name: "Laura Davis",
-    role: "Lead Developer",
-    image: "/team/team2.jpg",
-  },
-  {
-    name: "Sam White",
-    role: "Marketing Lead",
-    image: "/team/team3.jpg",
-  },
-  {
-    name: "James Wilson",
-    role: "Product Manager",
-    image: "/team/team4.jpg",
-  },
-  {
-    name: "Noah Williams",
-    role: "UI Designer",
-    image: "/team/team5.jpg",
-  },
-  {
-    name: "David Miller",
-    role: "Software Engineer",
-    image: "/team/team6.jpg",
-  },
-  {
-    name: "Emily Johnson",
-    role: "Branding",
-    image: "/team/team7.jpg",
-  },
-  {
-    name: "Julia Bernard",
-    role: "Sales Lead",
-    image: "/team/team8.jpg",
-  },
-];
+import { useEffect, useState } from "react";
+import { Linkedin, Github } from "lucide-react";
+import { TeamMember, getEnabledTeamMembers } from "@/lib/team-storage";
+
+function StatusBadge({ status }: { status: "open" | "busy" }) {
+  return (
+    <span
+      className={`text-xs font-medium leading-tight ${
+        status === "open" ? "text-green-400" : "text-zinc-400"
+      }`}
+    >
+      {status === "open" ? "Open to\nchat" : "Heads\ndown"}
+    </span>
+  );
+}
+
+function MemberCard({ m }: { m: TeamMember }) {
+  return (
+    <div className="flex flex-col rounded-2xl border border-zinc-800 bg-zinc-950 p-5 gap-4">
+      {/* Top row: photo + name + status */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="h-12 w-12 shrink-0 rounded-xl overflow-hidden bg-zinc-800">
+            {m.photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={m.photo} alt={m.name} className="h-full w-full object-cover" />
+            ) : (
+              <div className="h-full w-full flex items-center justify-center text-zinc-500 font-bold text-lg">
+                {m.name.charAt(0)}
+              </div>
+            )}
+          </div>
+          <div>
+            <p className="font-bold text-white text-base leading-tight">{m.name}</p>
+            <p className="text-xs text-zinc-400 mt-0.5">{m.role}</p>
+          </div>
+        </div>
+        <div className="text-right whitespace-pre-line pt-0.5">
+          <StatusBadge status={m.status} />
+        </div>
+      </div>
+
+      {/* Bio */}
+      <p className="text-sm text-zinc-400 leading-relaxed flex-1">{m.bio}</p>
+
+      {/* Footer: location + socials */}
+      <div className="flex items-center justify-between pt-1">
+        <span className="text-xs text-zinc-500">{m.location}</span>
+        <div className="flex gap-2">
+          {m.linkedinUrl ? (
+            <a
+              href={m.linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="h-7 w-7 rounded-lg border border-zinc-800 flex items-center justify-center hover:border-[#f69507]/50 transition"
+            >
+              <Linkedin size={13} className="text-zinc-400" />
+            </a>
+          ) : (
+            <span className="h-7 w-7 rounded-lg border border-zinc-800 flex items-center justify-center opacity-30">
+              <Linkedin size={13} className="text-zinc-600" />
+            </span>
+          )}
+          {m.githubUrl ? (
+            <a
+              href={m.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="h-7 w-7 rounded-lg border border-zinc-800 flex items-center justify-center hover:border-[#f69507]/50 transition"
+            >
+              <Github size={13} className="text-zinc-400" />
+            </a>
+          ) : (
+            <span className="h-7 w-7 rounded-lg border border-zinc-800 flex items-center justify-center opacity-30">
+              <Github size={13} className="text-zinc-600" />
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TeamShowcase() {
+  const [members, setMembers] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    setMembers(getEnabledTeamMembers());
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-black py-32">
-
-      {/* TOP SECTION */}
-      <div className="mx-auto max-w-5xl px-6 text-center">
-
-        <h2 className="text-6xl font-bold text-white">
-          Meet our Team
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-2xl text-zinc-400">
-          A diverse team of passionate professionals with unique
-          skills driving innovation and excellence in every project.
-        </p>
-
-      </div>
-
-      {/* IMAGE COLLAGE */}
-      <div className="relative mx-auto mt-20 max-w-5xl">
-
-        <div className="grid grid-cols-4 gap-8 max-w-5xl mx-auto">
-
-            {/* Column 1 */}
-            <div className="flex flex-col gap-8">
-                <Image
-                src="/team/team1.jpg"
-                alt=""
-                width={220}
-                height={340}
-                className="
-                    h-[340px]
-                    w-[220px]
-                    rounded-[120px]
-                    object-cover
-                "
-                />
-
-                <Image
-                src="/team/team5.jpg"
-                alt=""
-                width={220}
-                height={220}
-                className="
-                    h-[220px]
-                    w-[220px]
-                    rounded-[100px]
-                    object-cover
-                    mx-auto
-                "
-                />
-            </div>
-
-            {/* Column 2 */}
-            <div className="flex flex-col gap-8">
-                <Image
-                src="/team/team2.jpg"
-                alt=""
-                width={220}
-                height={220}
-                className="
-                    h-[220px]
-                    w-[220px]
-                    rounded-[100px]
-                    object-cover
-                    mx-auto
-                "
-                />
-
-                <Image
-                src="/team/team6.jpg"
-                alt=""
-                width={220}
-                height={340}
-                className="
-                    h-[340px]
-                    w-[220px]
-                    rounded-[120px]
-                    object-cover
-                "
-                />
-            </div>
-
-            {/* Column 3 */}
-            <div className="flex flex-col gap-8">
-                <Image
-                src="/team/team3.jpg"
-                alt=""
-                width={220}
-                height={340}
-                className="
-                    h-[340px]
-                    w-[220px]
-                    rounded-[120px]
-                    object-cover
-                "
-                />
-
-                <Image
-                src="/team/team7.jpg"
-                alt=""
-                width={220}
-                height={220}
-                className="
-                    h-[220px]
-                    w-[220px]
-                    rounded-[100px]
-                    object-cover
-                    mx-auto
-                "
-                />
-            </div>
-
-            {/* Column 4 */}
-            <div className="flex flex-col gap-8">
-                <Image
-                src="/team/team4.jpg"
-                alt=""
-                width={220}
-                height={220}
-                className="
-                    h-[220px]
-                    w-[220px]
-                    rounded-[100px]
-                    object-cover
-                    mx-auto
-                "
-                />
-
-                <Image
-                src="/team/team8.jpg"
-                alt=""
-                width={220}
-                height={340}
-                className="
-                    h-[340px]
-                    w-[220px]
-                    rounded-[120px]
-                    object-cover
-                "
-                />
-            </div>
-
-            </div>
-
-        {/* GLOW STRIP */}
-        <div
-          className="
-            absolute
-            left-1/2
-            bottom-0
-            h-16
-            w-[800px]
-            -translate-x-1/2
-            rounded-full
-            bg-gradient-to-r
-            from-[#f69507]
-            via-pink-500
-            to-cyan-400
-            opacity-30
-            blur-[90px]
-          "
-        />
-
-      </div>
-
-      {/* TEAM SECTION */}
-      <div className="mx-auto mt-40 max-w-6xl px-6">
-
-        <h2 className="text-center text-5xl font-bold text-white">
-          The Pi Dot Team
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-3xl text-center text-zinc-400">
-          A talented group of professionals dedicated to creating
-          impactful products and exceptional experiences.
-        </p>
-
-        {/* TEAM MEMBERS */}
-        <div className="mt-20 grid gap-x-12 gap-y-16 md:grid-cols-2 lg:grid-cols-4">
-
-        {teamMembers.map((member) => (
-
-            <div key={member.name}>
-
-            {/* HEADER */}
-            <div className="text-left">
-
-            <Image
-                src={member.image}
-                alt={member.name}
-                width={70}
-                height={70}
-                className="
-                h-[70px]
-                w-[70px]
-                rounded-full
-                object-cover
-                "
-            />
-
-            <h3
-                className="
-                mt-4
-                text-lg
-                font-semibold
-                text-white
-                "
-            >
-                {member.name}
-            </h3>
-
-            <p
-                className="
-                mt-1
-                text-sm
-                font-medium
-                text-[#f69507]
-                "
-            >
-                {member.role}
-            </p>
-
-            </div>
-
-            {/* DESCRIPTION */}
-            <p
-                className="
-                mt-5
-                text-sm
-                leading-7
-                text-zinc-500
-                "
-            >
-                Passionate about innovation and
-                delivering meaningful experiences
-                through technology and creativity.
-            </p>
-
-            {/* SOCIALS */}
-            <div className="mt-5 flex gap-4">
-
-                <Instagram
-                size={16}
-                className="
-                    cursor-pointer
-                    text-zinc-600
-                    transition
-                    hover:text-[#f69507]
-                "
-                />
-
-                <Linkedin
-                size={16}
-                className="
-                    cursor-pointer
-                    text-zinc-600
-                    transition
-                    hover:text-[#f69507]
-                "
-                />
-
-                <Twitter
-                size={16}
-                className="
-                    cursor-pointer
-                    text-zinc-600
-                    transition
-                    hover:text-[#f69507]
-                "
-                />
-
-            </div>
-
-            </div>
-
-        ))}
-
+    <section className="bg-black py-24 text-white">
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Header */}
+        <div className="mb-12">
+          <p className="text-sm text-zinc-500 mb-4">Team</p>
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight max-w-lg mb-4">
+            Practical operators<br />with product depth.
+          </h2>
+          <p className="text-zinc-400 max-w-xl text-base">
+            A focused group combining research, design, engineering, and quality to ship
+            clear, customer-facing outcomes.
+          </p>
         </div>
 
+        {/* Cards grid */}
+        {members.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {members.map((m) => (
+              <MemberCard key={m.id} m={m} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-zinc-600 text-sm">No team members to display yet.</p>
+        )}
       </div>
-
     </section>
   );
 }

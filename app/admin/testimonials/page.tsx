@@ -272,7 +272,7 @@ export default function TestimonialsAdminPage() {
                   });
                   refresh();
                 }}
-                className="flex items-center gap-2 rounded-xl bg-purple-600/20 px-4 py-2 text-sm font-medium text-purple-400 transition hover:bg-purple-600/30"
+                className="flex items-center gap-2 rounded-xl bg-[#f69507]/20 px-4 py-2 text-sm font-medium text-[#f69507] transition hover:bg-[#f69507]/30"
                 title="Duplicate"
               >
                 <Copy size={16} />
@@ -283,7 +283,7 @@ export default function TestimonialsAdminPage() {
                 onClick={() => handleToggle(t.id, t.enabled)}
                 className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition ${
                   t.enabled
-                    ? "bg-green-600/20 text-green-400 hover:bg-green-600/30"
+                    ? "bg-[#f69507]/20 text-[#f69507] hover:bg-[#f69507]/30"
                     : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                 }`}
                 title={t.enabled ? "Disable" : "Enable"}

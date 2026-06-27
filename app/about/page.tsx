@@ -7,7 +7,7 @@ import { NavbarDemo } from "@/components/sections/navbar-menu";
 import { FooterDemo } from "@/components/sections/footer";
 import { StickyBanner } from "@/components/ui/sticky-banner";
 import PiDotGlow from "@/components/sections/pi-dot-glow";
-import AboutSection from "@/features/about/about-section";
+import AboutHero from "@/features/about/about-hero";
 import TeamShowcase from "@/features/about/team-showcase";
 import { getBlogs } from "@/lib/blog-storage";
 
@@ -74,7 +74,7 @@ export default function About() {
             : "pt-12 sm:pt-16 md:pt-12 lg:pt-0"
         }`}
       >
-        <AboutSection />
+        <AboutHero />
         <TeamShowcase />
       </div>
 

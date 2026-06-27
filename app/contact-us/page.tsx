@@ -49,8 +49,8 @@ export default function ContactUs() {
       <div
         className={`flex-1 transition-all duration-300 ${
           isBannerOpen
-            ? "pt-28 sm:pt-20 md:pt-28 lg:pt-4"
-            : "pt-12 sm:pt-16 md:pt-12 lg:pt-0"
+            ? "pt-28 sm:pt-20 md:pt-28 lg:pt-16"
+            : "pt-12 sm:pt-16 md:pt-12 lg:pt-16"
         }`}
       >
         <ContactHero />

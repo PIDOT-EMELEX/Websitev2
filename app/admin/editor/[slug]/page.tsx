@@ -632,7 +632,7 @@ export default function BlogEditorPage() {
           {/* Visibility toggle */}
           <button onClick={() => { setPublished(v => !v); markDirty(); }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-              published ? "bg-green-600 text-white" : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"}`}>
+              published ? "bg-[#f69507] text-black font-semibold" : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"}`}>
             {published ? <Eye size={12} /> : <EyeOff size={12} />}
             <span className="hidden sm:inline">{published ? "Published" : "Draft"}</span>
           </button>

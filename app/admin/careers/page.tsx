@@ -250,7 +250,7 @@ export default function CareersAdminPage() {
                           rounded-xl px-4 py-2.5 text-sm font-semibold transition cursor-pointer flex items-center gap-1.5
                           ${
                             job.enabled
-                              ? "bg-green-600/10 text-green-400 border border-green-500/20 hover:bg-green-600/20"
+                              ? "bg-[#f69507]/10 text-[#f69507] border border-[#f69507]/20 hover:bg-[#f69507]/20"
                               : "bg-zinc-800 text-zinc-400 border border-zinc-700 hover:bg-zinc-700"
                           }
                         `}
