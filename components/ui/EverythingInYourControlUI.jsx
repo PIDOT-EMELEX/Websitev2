@@ -1,81 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MovingBorder from "../moving-border";
 
 export default function EverythingInYourControlUI() {
 
 const [activeTab, setActiveTab] = useState(1);
-const [isOpen, setIsOpen] = useState(false);
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setActiveTab((prev) => (prev % 6) + 1);
+  }, 4500);
+  return () => clearInterval(timer);
+}, [activeTab]);
+
   return (
     <div dir="ltr" data-orientation="horizontal">
-        
-        {/* MOBILE DROPDOWN */}
-        <div className="lg:hidden mb-4">
-
-        {/* Selected Button */}
-        <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-full border border-white/30 rounded-2xl p-4 text-left text-white bg-black"
-        >
-            {activeTab === 1 && "Design the role before you hire"}
-            {activeTab === 2 && "Simulate your business environment"}
-            {activeTab === 3 && "Control evaluation criteria"}
-            {activeTab === 4 && "Watch candidates perform"}
-            {activeTab === 5 && "Shortlist using performance signals"}
-            {activeTab === 6 && "Hire your right candidate"}
-        </button>
-
-        {/* Dropdown Buttons */}
-        {isOpen && (
-            <div className="mt-2 flex flex-col gap-2">
-            
-            <button
-                onClick={() => { setActiveTab(1); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Design the role before you hire
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(2); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Simulate your business environment
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(3); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Control evaluation criteria
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(4); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Watch candidates perform
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(5); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Shortlist using performance signals
-            </button>
-
-            <button
-                onClick={() => { setActiveTab(6); setIsOpen(false); }}
-                className="border border-white/30 rounded-2xl p-4 text-white bg-black"
-            >
-                Hire your right candidate
-            </button>
-
-            </div>
-        )}
-
-        </div>
         
         {/* TAB LIST */}
         <div
