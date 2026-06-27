@@ -8,7 +8,6 @@ import { FooterDemo } from "@/components/sections/footer";
 import { StickyBanner } from "@/components/ui/sticky-banner";
 import PiDotGlow from "@/components/sections/pi-dot-glow";
 import ContactHero from "@/features/contact-us/contact-hero";
-import ContactSection from "@/features/contact-us/contact-section";
 
 export default function ContactUs() {
   const [isBannerOpen, setIsBannerOpen] = useState(true);
@@ -55,15 +54,14 @@ export default function ContactUs() {
         }`}
       >
         <ContactHero />
-        <ContactSection />
       </div>
 
       {/* FOOTER */}
-      <section className="relative min-h-screen bg-black">
+      <section className="relative bg-black pt-16">
         <div className="absolute inset-0 z-0">
           <PiDotGlow />
         </div>
-        <div className="relative z-10 mt-75">
+        <div className="relative z-10">
           <FooterDemo />
         </div>
       </section>

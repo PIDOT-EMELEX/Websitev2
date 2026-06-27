@@ -165,3 +165,23 @@ body {
 * {
   font-family: inherit;
 }
+
+/* ----------------------------------
+   Cal.com Embed Overrides
+----------------------------------- */
+iframe[src*="cal.com"],
+#cal-inline-embed iframe, 
+#cal-inline-embed iframe[src*="cal.com"],
+#cal-inline-embed div,
+#cal-inline-embed {
+  border: 0px solid transparent !important;
+  border-style: none !important;
+  border-width: 0px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color-scheme: normal !important;
+}
+
+#cal-inline-embed iframe {
+  border-radius: 16px !important;
+}

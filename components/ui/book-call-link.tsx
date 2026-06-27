@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export const CAL_BOOKING_URL = "https://cal.com/pi-dot";
+export const CAL_BOOKING_URL = "/contact-us";
 
 type BookCallLinkProps = {
   className?: string;
@@ -12,8 +12,6 @@ export function BookCallLink({ className, mobileMenu = false }: BookCallLinkProp
     return (
       <a
         href={CAL_BOOKING_URL}
-        target="_blank"
-        rel="noopener noreferrer"
         className={cn(
           "w-full flex items-center text-lg text-white bg-transparent p-0 border-0 outline-none text-left font-medium hover:text-[#f69507] transition-colors cursor-pointer group/modal-btn relative overflow-hidden",
           className
@@ -32,8 +30,6 @@ export function BookCallLink({ className, mobileMenu = false }: BookCallLinkProp
   return (
     <a
       href={CAL_BOOKING_URL}
-      target="_blank"
-      rel="noopener noreferrer"
       className={cn(
         "inline-flex items-center justify-center rounded-2xl bg-white/10 text-white backdrop-blur hover:bg-white/20 border border-white/10 px-6 py-3 text-sm font-medium transition cursor-pointer text-center group/modal-btn relative overflow-hidden",
         className

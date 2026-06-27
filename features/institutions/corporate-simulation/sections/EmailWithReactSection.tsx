@@ -57,8 +57,6 @@ export default function EmailWithReactSection() {
         {/* Primary Button */}
         <a
           href={CAL_BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           className="
             relative inline-flex items-center justify-center select-none
             rounded-2xl h-12 px-5 text-base font-semibold text-white

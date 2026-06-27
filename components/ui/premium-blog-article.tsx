@@ -291,8 +291,6 @@ export function PremiumBlogArticle({
                 </p>
                 <a
                   href={CAL_BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#f69507] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[#e08806] active:scale-95 shadow-md shadow-[#f69507]/20"
                 >
                   Get in touch
@@ -358,8 +356,6 @@ export function PremiumBlogArticle({
           >
             <a
               href={CAL_BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-block rounded-full bg-[#f69507] px-8 py-3.5 font-bold text-black transition-all duration-200 hover:bg-[#e08806] active:translate-y-0.5"
             >
               Get in touch
