@@ -36,8 +36,8 @@ export default function HeroSection() {
           </div>
 
           {/* ================= RIGHT SPACE + CUBE ================= */}
-          <div className="relative hidden lg:block bg-black">
-            <div className="absolute inset-8">
+          <div className="relative w-full h-[350px] sm:h-[450px] lg:h-auto bg-black my-8 lg:my-0">
+            <div className="absolute inset-4 lg:inset-8">
               <BlackCubeScene />
             </div>
           </div>
